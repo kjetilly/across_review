@@ -26,8 +26,17 @@ do
             mkdir build
         fi
         cd build
-        cmake 	-DCMAKE_C_COMPILER=$CC \
-		-DCMAKE_CXX_COMPILER=$CXX \
-        -DUSE_MPI=1  -DCMAKE_PREFIX_PATH="$location/zoltan/;$location/dune-common/build/;$location/dune-geometry/build/;$location/dune-grid/build/;$location/dune-istl/build/;$location/boost;$location/opm-common;$location/opm-material;$location/opm-grid;$location/opm-models" -DCMAKE_BUILD_TYPE=Release -Wno-dev .. 
+        USE_DAMARIS=''
+        if [[ $repo == 'opm-simulators' ]]; then
+            USE_DAMARIS='-DUSE_DAMARIS_LIB=ON'
+        fi
+        cmake-DCMAKE_C_COMPILER=$CC \
+		    -DCMAKE_CXX_COMPILER=$CXX \
+            -DUSE_MPI=1  \
+            -DCMAKE_PREFIX_PATH="$location/zoltan/;$location/dune-common/build/;$location/dune-geometry/build/;$location/dune-grid/build/;$location/dune-istl/build/;$location/boost;$location/opm-common;$location/opm-material;$location/opm-grid;$location/opm-models" \
+            -DCMAKE_BUILD_TYPE=Release \
+            -Wno-dev \
+            ${USE_DAMARIS} \
+            .. 
         make -j$parallel_build_tasks
 done
