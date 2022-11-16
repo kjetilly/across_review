@@ -64,3 +64,5 @@ RUN cd ${BUILD_FOLDER} && \
 RUN cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_opm.sh
+
+RUN pip3 install dask

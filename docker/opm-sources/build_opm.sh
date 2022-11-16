@@ -33,10 +33,11 @@ do
     cmake -DCMAKE_C_COMPILER=$CC \
         -DCMAKE_CXX_COMPILER=$CXX \
         -DUSE_MPI=1  \
-        -DCMAKE_PREFIX_PATH="$location/zoltan/;$location/dune;$location/boost;$location/opm-common;$location/opm-material;$location/opm-grid;$location/opm-models" \
+        -DCMAKE_PREFIX_PATH="/opt/src/damaris/build/;$location/zoltan/;$location/dune;$location/boost;$location/opm-common;$location/opm-material;$location/opm-grid;$location/opm-models" \
         -DCMAKE_BUILD_TYPE=Release \
         -Wno-dev \
         ${USE_DAMARIS} \
         ..
     make -j$parallel_build_tasks
+    make install
 done
