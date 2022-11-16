@@ -16,9 +16,13 @@ do
             git clone https://github.com/OPM/$repo.git
             cd $repo
             git checkout `git rev-list -n 1 --first-parent --before="2022-11-06 13:37" master`
+            
             cd -
         else
             git clone https://github.com/atgeirr/opm-simulators -b write-global-cell-index-to-damaris
+            cd opm-simulators
+            cp ../opm-simulators_CMakeLists.txt ./CMakeLists.txt
+            cd ..
         fi
     fi
     cd $repo
@@ -33,7 +37,7 @@ do
     cmake -DCMAKE_C_COMPILER=$CC \
         -DCMAKE_CXX_COMPILER=$CXX \
         -DUSE_MPI=1  \
-        -DCMAKE_PREFIX_PATH="/opt/src/damaris/build/;$location/zoltan/;$location/dune;$location/boost;$location/opm-common;$location/opm-material;$location/opm-grid;$location/opm-models" \
+        -DCMAKE_PREFIX_PATH="/opt/src/damaris/build/lib;$location/zoltan/;$location/dune;$location/boost;$location/opm-common;$location/opm-material;$location/opm-grid;$location/opm-models" \
         -DCMAKE_BUILD_TYPE=Release \
         -Wno-dev \
         ${USE_DAMARIS} \
