@@ -48,6 +48,15 @@ RUN cd ${BUILD_FOLDER} &&\
 
 
 COPY opm-sources ${BUILD_FOLDER}/opm-sources
+ 
 RUN cd ${BUILD_FOLDER} && \
     cd opm-sources && \
-    bash cloneAndInstallLocally.sh
+    bash build_zoltan.sh
+
+RUN cd ${BUILD_FOLDER} && \
+    cd opm-sources && \
+    bash build_dune.sh
+    
+RUN cd ${BUILD_FOLDER} && \
+    cd opm-sources && \
+    bash build_opm.sh
