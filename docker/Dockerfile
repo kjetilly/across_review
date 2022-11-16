@@ -14,12 +14,14 @@ RUN apt-get update && \
         libboost-all-dev \
         libhdf5-openmpi-dev \
         libopenmpi-dev \
+        libsuitesparse-dev \
         libxerces-c-dev \
         openmpi-bin \
         openmpi-common \
         paraview \
         paraview-dev \
         python3 \
+        python3-pip \
         python3-mpi4py \
         unzip \
         wget \

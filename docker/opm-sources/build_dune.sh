@@ -14,7 +14,7 @@ parallel_build_tasks=16
 #############################################
 
 cd $location
-
+install_prefix=$location/dune
 for repo in dune-common dune-geometry dune-grid dune-istl
 do
     echo "=== Cloning and building module: $repo"
@@ -34,9 +34,11 @@ do
     cd build
     cmake -DCMAKE_BUILD_TYPE=Release  \
         -DCMAKE_C_COMPILER=$CC \
+        -DCMAKE_PREFIX_PATH=$install_prefix \
+        -DCMAKE_INSTALL_PREFIX=$install_prefix \
         -DCMAKE_CXX_COMPILER=$CXX \
         ..
     make -j $parallel_build_tasks
+    make install
+    cd $location
 done
-
-bash build_opm.sh
