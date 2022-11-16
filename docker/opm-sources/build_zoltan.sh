@@ -7,7 +7,7 @@ parallel_build_tasks=16
 
 export INSTALL_PREFIX=$location"/boost"
 
-
+trilinos_version=13-4-1
 install_prefix=$location"/zoltan"
 if [[ ! -d $install_prefix ]]; then
     mkdir $install_prefix
@@ -15,8 +15,9 @@ fi
 
 if [[ ! -d Trilinos ]]; then
     # git clone https://github.com/trilinos/Trilinos.git
-    wget https://github.com/trilinos/Trilinos/archive/refs/tags/trilinos-release-13-4-1.zip
-    unzip trilinos-release-13-4-1.zip
+    wget https://github.com/trilinos/Trilinos/archive/refs/tags/trilinos-release-${trilinos_version}.zip
+    unzip trilinos-release-${trilinos_version}.zip
+    mv Trilinos-trilinos-release-${trilinos_version} Trilinos
 fi
 
 cd Trilinos
