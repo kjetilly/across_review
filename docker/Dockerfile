@@ -21,6 +21,8 @@ RUN apt-get update && \
         paraview-dev \
         python3 \
         python3-mpi4py \
+        unzip \
+        wget \
         xsdcxx \
         && \
     rm -rf /var/lib/apt/lists/* && \
@@ -56,7 +58,7 @@ RUN cd ${BUILD_FOLDER} && \
 RUN cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_dune.sh
-    
+
 RUN cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_opm.sh

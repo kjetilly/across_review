@@ -1,3 +1,5 @@
+#!/bin/bash
+set -e
 location=`pwd`
 
 CC=$(which gcc)
