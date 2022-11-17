@@ -31,7 +31,7 @@
 <actions>
 </actions>
 <scripts>
-    <pyscript name="MyPyAction" file="/home/kjetil/projects/sintef/across/across_review/docker/damaris-scripts/publish_data.py" language="python" frequency="1" scheduler-file="/home/kjetil/projects/sintef/across/across_review/opm-temp/opm-simulators/build/dask_file.json" nthreads="1" keep-workers="no" />
+    <pyscript name="MyPyAction" file="/damaris-scripts/publish_data.py" language="python" frequency="1" scheduler-file="/data/dask.json" nthreads="1" keep-workers="no" />
     <!-- <pyscript language="python" frequency="1" name="MyPyAction" file="/home/kjetil/projects/sintef/across/across_review/docker/damaris-scripts/publish_data.py" /> -->
 </scripts>
 

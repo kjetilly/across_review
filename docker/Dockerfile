@@ -62,9 +62,26 @@ RUN cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_dune.sh
 
+# opm-common opm-material opm-grid opm-models opm-simulators
 RUN cd ${BUILD_FOLDER} && \
     cd opm-sources && \
-    bash build_opm.sh
+    bash build_opm_component.sh opm-common
+
+RUN cd ${BUILD_FOLDER} && \
+    cd opm-sources && \
+    bash build_opm_component.sh opm-material
+
+RUN cd ${BUILD_FOLDER} && \
+    cd opm-sources && \
+    bash build_opm_component.sh opm-grid
+
+RUN cd ${BUILD_FOLDER} && \
+    cd opm-sources && \
+    bash build_opm_component.sh opm-models
+
+RUN cd ${BUILD_FOLDER} && \
+    cd opm-sources && \
+    bash build_opm_component.sh opm-simulators
 
 RUN cd ${BUILD_FOLDER} && \
     git clone https://github.com/vojtechcima/ert.git -b hq && \
@@ -73,4 +90,18 @@ RUN cd ${BUILD_FOLDER} && \
     pip install conan && \
     # Yes, I know this is horrible:
     pip install -r dev-requirements.txt && \
+    # Need to update conan remote (old one is deprecated) 
+    conan remote add -i 0 conancenter https://center.conan.io && \
     python setup.py install
+
+COPY run-script/run.sh /usr/bin/run.sh
+RUN chmod a+x /usr/bin/run.sh
+
+COPY damaris-scripts /damaris-scripts
+RUN chmod -R a+rX /damaris-scripts
+
+RUN mkdir /data/ && chmod a+rwx /data
+ENV DASK_FILE /data/dask.json
+ENV FLOW_DAMARIS_CONFIG_XML_FILE /damaris-scripts/damaris.xml
+
+ENTRYPOINT /usr/bin/run.sh
