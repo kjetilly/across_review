@@ -1,0 +1,18 @@
+{% extends base %}
+
+<!-- goes in head -->
+{% block preamble %}
+<link href="view_app/static/css/styles.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block contents %}
+<div>
+	<p>
+      <img src="view_app/static/images/ACROSS_Logo_107x28.jpg" alt="ACROSS_LOGO_SMALL">
+      <h1>ACROSS Software Stack WP7 Demo</h1>
+    </p>
+    <p style="align:center"> {{ embed(roots.bokeh_jinja_figure) }} </p>
+
+</div>
+{% endblock %}
