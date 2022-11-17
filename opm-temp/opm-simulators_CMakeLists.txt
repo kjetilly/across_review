@@ -35,7 +35,7 @@ option(USE_DAMARIS_LIB "Use the Damaris library for asynchronous I/O?" OFF)
 
   
 if (USE_DAMARIS_LIB)
-  set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /opt/src/damaris/cmake/Modules)
+  set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /home/kjetil/projects/sintef/across/across_review/opm-temp/damaris/cmake/Modules)
   FIND_PACKAGE(Damaris REQUIRED)
 endif()
 
