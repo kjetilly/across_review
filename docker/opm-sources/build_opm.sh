@@ -19,7 +19,7 @@ do
             
             cd -
         else
-            git clone https://github.com/atgeirr/opm-simulators -b write-global-cell-index-to-damaris
+            git clone https://github.com/kjetilly/opm-simulators -b kjetilly_review
             cd opm-simulators
             cp ../opm-simulators_CMakeLists.txt ./CMakeLists.txt
             cp ../opm-simulators-prereqs.cmake ./
@@ -38,7 +38,7 @@ do
     cmake -DCMAKE_C_COMPILER=$CC \
         -DCMAKE_CXX_COMPILER=$CXX \
         -DUSE_MPI=1  \
-        -DCMAKE_PREFIX_PATH="/opt/src/damaris/build/lib;$location/zoltan/;$location/dune;$location/boost;$location/opm-common;$location/opm-material;$location/opm-grid;$location/opm-models" \
+        -DCMAKE_PREFIX_PATH="$location/zoltan/;$location/dune;$location/boost;$location/opm-common;$location/opm-material;$location/opm-grid;$location/opm-models" \
         -DCMAKE_BUILD_TYPE=Release \
         -DBUILD_EXAMPLES=OFF \
         -DBUILD_TESTING=OFF \

@@ -18,7 +18,7 @@ do
             git checkout `git rev-list -n 1 --first-parent --before="2022-11-06 13:37" master`
             cd -
         else
-            git clone https://github.com/atgeirr/opm-simulators -b write-global-cell-index-to-damaris
+            git clone https://github.com/kjetilly/opm-simulators -b kjetilly_review
 	        cp opm-simulators_CMakeLists.txt ./opm-simulators/CMakeLists.txt
             cp opm-simulators-prereqs.cmake ./opm-simulators/
         fi

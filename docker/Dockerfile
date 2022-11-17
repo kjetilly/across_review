@@ -50,7 +50,6 @@ RUN cd ${BUILD_FOLDER} &&\
         -DPYTHON_MODULE_INSTALL_PATH=${BUILD_FOLDER}/damaris_python \
     make install
 
-
 COPY opm-sources ${BUILD_FOLDER}/opm-sources
  
 RUN cd ${BUILD_FOLDER} && \
