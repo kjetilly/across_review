@@ -6,8 +6,6 @@ CC=$(which gcc)
 CXX=$(which g++)
 location=$(pwd)
 parallel_build_tasks=1
-cd $location
-
 for repo in opm-common opm-material opm-grid opm-models opm-simulators
 do
     cd $location
@@ -38,7 +36,7 @@ do
     cmake -DCMAKE_C_COMPILER=$CC \
         -DCMAKE_CXX_COMPILER=$CXX \
         -DUSE_MPI=1  \
-        -DCMAKE_PREFIX_PATH="$location/zoltan/;$location/dune;$location/boost;$location/opm-common;$location/opm-material;$location/opm-grid;$location/opm-models" \
+        -DCMAKE_PREFIX_PATH="${BUILD_FOLDER}/damaris-install;$location/zoltan/;$location/dune;$location/boost;$location/opm-common;$location/opm-material;$location/opm-grid;$location/opm-models" \
         -DCMAKE_BUILD_TYPE=Release \
         -DBUILD_EXAMPLES=OFF \
         -DBUILD_TESTING=OFF \

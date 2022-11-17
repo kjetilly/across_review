@@ -47,6 +47,7 @@ RUN cd ${BUILD_FOLDER} &&\
         -DENABLE_PYTHON=ON \
         -DENABLE_PYTHONMOD=ON \
         -DGENERATE_MODEL=ON \
+        -DCMAKE_INSTALL_PREFIX=${BUILD_FOLDER}/damaris-install \
         -DPYTHON_MODULE_INSTALL_PATH=${BUILD_FOLDER}/damaris_python \
     make install
 
