@@ -36,6 +36,7 @@ RUN apt-get update && \
     cp -r /usr/lib/x86_64-linux-gnu/openmpi/include/* /usr/include/ && \
     cp -r /usr/lib/x86_64-linux-gnu/openmpi/lib/* /usr/lib64
 
+RUN pip3 install dask
 
 RUN cd ${BUILD_FOLDER} &&\
     git clone https://gitlab.inria.fr/Damaris/damaris.git -b dask_pub_sub && \
@@ -64,5 +65,3 @@ RUN cd ${BUILD_FOLDER} && \
 RUN cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_opm.sh
-
-RUN pip3 install dask
