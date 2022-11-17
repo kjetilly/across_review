@@ -36,7 +36,7 @@ RUN apt-get update && \
     cp -r /usr/lib/x86_64-linux-gnu/openmpi/include/* /usr/include/ && \
     cp -r /usr/lib/x86_64-linux-gnu/openmpi/lib/* /usr/lib64
 
-RUN pip3 install dask
+RUN pip3 install dask[complete]
 
 RUN cd ${BUILD_FOLDER} &&\
     git clone https://gitlab.inria.fr/Damaris/damaris.git -b dask_pub_sub && \
@@ -49,7 +49,7 @@ RUN cd ${BUILD_FOLDER} &&\
         -DENABLE_PYTHONMOD=ON \
         -DGENERATE_MODEL=ON \
         -DCMAKE_INSTALL_PREFIX=${BUILD_FOLDER}/damaris-install \
-        -DPYTHON_MODULE_INSTALL_PATH=${BUILD_FOLDER}/damaris_python \
+        -DPYTHON_MODULE_INSTALL_PATH=${BUILD_FOLDER}/damaris_python && \
     make install
 
 COPY opm-sources ${BUILD_FOLDER}/opm-sources
@@ -65,3 +65,12 @@ RUN cd ${BUILD_FOLDER} && \
 RUN cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_opm.sh
+
+RUN cd ${BUILD_FOLDER} && \
+    git clone https://github.com/vojtechcima/ert.git -b hq && \
+    cd ert && \
+    git tag -a v2.36.0 -m 'Version now' && \
+    pip install conan && \
+    # Yes, I know this is horrible:
+    pip install -r dev-requirements.txt && \
+    python setup.py install
