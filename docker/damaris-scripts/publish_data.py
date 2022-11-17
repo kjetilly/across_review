@@ -6,7 +6,7 @@
 # The script is designed to test the damaris4py.damaris_stats class named DaskStats
 #
 
-import numpy as np
+
 
 
 # N.B. This file is read by each Damaris server process on each iteration that is
@@ -16,10 +16,15 @@ import numpy as np
 def main(DD):
    
     try:
-        print(f"{DD.keys()=}")
-        print(f"{DD['iteration_data']=}")
-        print(f"{DD['damaris_env']=}")      
-        print(f"{DD['dask_env']=}")      
+        from dask.distributed import Client
+        from dask.distributed import Sub, Pub
+        import numpy as np
+
+        with Client(scheduler_file=DD['dask_env']['dask_scheduler_file']) as client:
+            pub = Pub(name='SIMULATION_DATA', client=client)
+            iteration = DD['iteration_data']['iteration']
+            data = np.mean(DD['iteration_data']['PRESSURE']['numpy_data']['P0_B0'])
+            pub.put((iteration, data, 'somestring'))
     except KeyError as err:
         print('Python ERROR: KeyError: No damaris data of name: ', err)
     except PermissionError as err:
