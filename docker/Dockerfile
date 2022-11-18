@@ -21,7 +21,7 @@ RUN apt-get update && \
         paraview \
         paraview-dev \
         pybind11-dev \
-        pybind11-json-dev
+        pybind11-json-dev \
         python3 \
         python3-mpi4py \
         python3-pip \
