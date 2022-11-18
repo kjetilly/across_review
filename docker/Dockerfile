@@ -20,12 +20,12 @@ RUN apt-get update && \
         openmpi-common \
         paraview \
         paraview-dev \
-        pybind11-dev \
-        pybind11-json-dev \
+        #pybind11-dev \
+        #pybind11-json-dev \
         python3 \
-        python3-mpi4py \
+        #python3-mpi4py \
         python3-pip \
-        python3-pybind11 \
+        #python3-pybind11 \
         unzip \
         wget \
         xsdcxx \
@@ -39,7 +39,26 @@ RUN apt-get update && \
     cp -r /usr/lib/x86_64-linux-gnu/openmpi/include/* /usr/include/ && \
     cp -r /usr/lib/x86_64-linux-gnu/openmpi/lib/* /usr/lib64
 
-RUN pip3 install dask[complete]
+RUN pip3 install pybind11
+RUN cd ${BUILD_FOLDER} && \
+    git clone https://github.com/vojtechcima/ert.git -b hq && \
+    cd ert && \
+    # We need to tag this to get python setup.py to work
+    # if you know a better way, please let me know
+    git config --global user.email 'user@user.org' && \
+    git config --global user.name 'Dr. User User' && \
+    git tag -a v2.36.0 -m 'Version now' && \
+    pip install conan && \
+    # Yes, I know this is horrible to install globally:
+    pip install -r dev-requirements.txt && \
+    # Need to update conan remote (old one is deprecated) 
+    # conan remote update conancenter https://center.conan.io && \
+    # pip install xtgeo --upgrade --force-reinstall  && \
+    python setup.py install
+    # Something is messed up with our python setup, but leaving for now:
+
+
+RUN pip3 install dask[complete] pybind11 mpi4py
 
 RUN cd ${BUILD_FOLDER} &&\
     git clone https://gitlab.inria.fr/Damaris/damaris.git -b dask_pub_sub && \
@@ -85,23 +104,6 @@ RUN cd ${BUILD_FOLDER} && \
 RUN cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_opm_component.sh opm-simulators
-
-RUN cd ${BUILD_FOLDER} && \
-    git clone https://github.com/vojtechcima/ert.git -b hq && \
-    cd ert && \
-    # We need to tag this to get python setup.py to work
-    # if you know a better way, please let me know
-    git config --global user.email 'user@user.org' && \
-    git config --global user.name 'Dr. User User' && \
-    git tag -a v2.36.0 -m 'Version now' && \
-    pip install conan && \
-    # Yes, I know this is horrible:
-    pip install -r dev-requirements.txt && \
-    # Need to update conan remote (old one is deprecated) 
-    # conan remote update conancenter https://center.conan.io && \
-    python setup.py install && \
-    # Something is messed up with our python setup, but leaving for now:
-    pip install xtgeo --upgrade --force-reinstall 
 
 # We will have two main scripts that we will use from the outside
 # of the docker container. Both will start the bokeh server and
