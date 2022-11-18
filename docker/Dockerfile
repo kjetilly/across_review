@@ -115,3 +115,7 @@ RUN mkdir /data/ && chmod a+rwx /data
 ENV DASK_FILE /data/dask.json
 ENV FLOW_DAMARIS_CONFIG_XML_FILE /damaris-scripts/damaris.xml
 
+# DASK
+EXPOSE 8787 
+# BOKEH
+EXPOSE 5006
