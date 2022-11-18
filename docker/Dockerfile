@@ -99,7 +99,9 @@ RUN cd ${BUILD_FOLDER} && \
     pip install -r dev-requirements.txt && \
     # Need to update conan remote (old one is deprecated) 
     # conan remote update conancenter https://center.conan.io && \
-    python setup.py install
+    python setup.py install && \
+    # Something is messed up with our python setup, but leaving for now:
+    pip install xtgeo --upgrade --force-reinstall 
 
 # We will have two main scripts that we will use from the outside
 # of the docker container. Both will start the bokeh server and
