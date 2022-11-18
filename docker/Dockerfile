@@ -20,9 +20,12 @@ RUN apt-get update && \
         openmpi-common \
         paraview \
         paraview-dev \
+        pybind11-dev \
+        pybind11-json-dev
         python3 \
-        python3-pip \
         python3-mpi4py \
+        python3-pip \
+        python3-pybind11 \
         unzip \
         wget \
         xsdcxx \
@@ -86,12 +89,16 @@ RUN cd ${BUILD_FOLDER} && \
 RUN cd ${BUILD_FOLDER} && \
     git clone https://github.com/vojtechcima/ert.git -b hq && \
     cd ert && \
+    # We need to tag this to get python setup.py to work
+    # if you know a better way, please let me know
+    git config --global user.email 'user@user.org' && \
+    git config --global user.name 'Dr. User User' && \
     git tag -a v2.36.0 -m 'Version now' && \
     pip install conan && \
     # Yes, I know this is horrible:
     pip install -r dev-requirements.txt && \
     # Need to update conan remote (old one is deprecated) 
-    conan remote add -i 0 conancenter https://center.conan.io && \
+    # conan remote update conancenter https://center.conan.io && \
     python setup.py install
 
 # We will have two main scripts that we will use from the outside
