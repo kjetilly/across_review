@@ -4,6 +4,10 @@ FROM ubuntu:22.10
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG BUILD_FOLDER=/opt/src
+
+ENV ERT_VENV /venvs/ert
+ENV FLOW_VENV /venvs/flow
+
 RUN mkdir -p $BUILD_FOLDER
 RUN apt-get update && \
     apt-get install -y \
@@ -23,6 +27,7 @@ RUN apt-get update && \
         #pybind11-dev \
         #pybind11-json-dev \
         python3 \
+        python3-venv \
         #python3-mpi4py \
         python3-pip \
         #python3-pybind11 \
@@ -39,8 +44,11 @@ RUN apt-get update && \
     cp -r /usr/lib/x86_64-linux-gnu/openmpi/include/* /usr/include/ && \
     cp -r /usr/lib/x86_64-linux-gnu/openmpi/lib/* /usr/lib64
 
-RUN pip3 install pybind11
-RUN cd ${BUILD_FOLDER} && \
+RUN python -m venv $ERT_VENV
+RUN python -m venv $FLOW_VENV
+
+RUN . $ERT_VENV/bin/activate && pip3 install pybind11
+RUN . $ERT_VENV/bin/activate && cd ${BUILD_FOLDER} && \
     git clone https://github.com/vojtechcima/ert.git -b hq && \
     cd ert && \
     # We need to tag this to get python setup.py to work
@@ -58,9 +66,9 @@ RUN cd ${BUILD_FOLDER} && \
     # Something is messed up with our python setup, but leaving for now:
 
 
-RUN pip3 install dask[complete] pybind11 mpi4py
+RUN . $FLOW_VENV/bin/activate && pip3 install dask[complete] pybind11 mpi4py
 
-RUN cd ${BUILD_FOLDER} &&\
+RUN . $FLOW_VENV/bin/activate && cd ${BUILD_FOLDER} &&\
     git clone https://gitlab.inria.fr/Damaris/damaris.git -b dask_pub_sub && \
     cd damaris && \
     mkdir -p build && \
@@ -76,32 +84,32 @@ RUN cd ${BUILD_FOLDER} &&\
 
 COPY opm-sources ${BUILD_FOLDER}/opm-sources
  
-RUN cd ${BUILD_FOLDER} && \
+RUN . $FLOW_VENV/bin/activate && cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_zoltan.sh
 
-RUN cd ${BUILD_FOLDER} && \
+RUN . $FLOW_VENV/bin/activate && cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_dune.sh
 
 # opm-common opm-material opm-grid opm-models opm-simulators
-RUN cd ${BUILD_FOLDER} && \
+RUN . $FLOW_VENV/bin/activate && cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_opm_component.sh opm-common
 
-RUN cd ${BUILD_FOLDER} && \
+RUN . $FLOW_VENV/bin/activate && cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_opm_component.sh opm-material
 
-RUN cd ${BUILD_FOLDER} && \
+RUN . $FLOW_VENV/bin/activate && cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_opm_component.sh opm-grid
 
-RUN cd ${BUILD_FOLDER} && \
+RUN . $FLOW_VENV/bin/activate && cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_opm_component.sh opm-models
 
-RUN cd ${BUILD_FOLDER} && \
+RUN . $FLOW_VENV/bin/activate && cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_opm_component.sh opm-simulators
 
@@ -109,8 +117,10 @@ RUN cd ${BUILD_FOLDER} && \
 # of the docker container. Both will start the bokeh server and
 # dask scheduler 
 COPY run-scripts/run_ert.sh /usr/bin/run_ert.sh
+COPY run-scripts/run_ert_venv.sh /usr/bin/run_ert_venv.sh
 COPY run-scripts/run_flow.sh /usr/bin/run_flow.sh
-RUN chmod a+x /usr/bin/run_flow.sh /usr/bin/run_ert.sh
+COPY run-scripts/flow_venv.sh /usr/bin/flow_venv.sh
+RUN chmod a+x /usr/bin/run_flow.sh /usr/bin/run_ert.sh /usr/bin/run_ert_venv.sh /usr/bin/flow_venv.sh
 
 COPY damaris-scripts /damaris-scripts
 RUN chmod -R a+rX /damaris-scripts
