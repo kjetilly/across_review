@@ -19,6 +19,7 @@ def main(DD):
         from dask.distributed import Client
         from dask.distributed import Sub, Pub
         import numpy as np
+        import os
 
         with Client(scheduler_file=DD['dask_env']['dask_scheduler_file']) as client:
             pub = Pub(name='SIMULATION_DATA', client=client)
@@ -26,7 +27,7 @@ def main(DD):
             print(f"{iteration=}")
             data = np.mean(DD['iteration_data']['PRESSURE']['numpy_data']['P0_B0'])
             print(f"{data=}")
-            pub.put((iteration, data, 'somestring'))
+            pub.put((iteration, data, os.getcwd()))
             print("Published data")
     except KeyError as err:
         print('Python ERROR: KeyError: No damaris data of name: ', err)

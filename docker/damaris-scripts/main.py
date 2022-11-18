@@ -47,7 +47,7 @@ import sys, getopt, time
 # @gen.coroutine
 async def stream_update(x, y, sim_string):
     
-    source.stream(dict(x=[x], y=[y], sim_string=[sim_string]), rollover=100)  # rollover limits number of data points that will be kept for display
+    source.stream(dict(x=[x], y=[y], sim_string=[sim_string]), rollover=1000000)  # rollover limits number of data points that will be kept for display
     # palette = d3['Category10'][len(source['sim_string'].unique())]
     # color_map = CategoricalColorMapper(factors=source['sim_string'].unique(),palette=palette)
     
