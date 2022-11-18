@@ -14,7 +14,7 @@
 
 
 def main(DD):
-   
+    print("Running iteration")
     try:
         from dask.distributed import Client
         from dask.distributed import Sub, Pub
@@ -23,8 +23,11 @@ def main(DD):
         with Client(scheduler_file=DD['dask_env']['dask_scheduler_file']) as client:
             pub = Pub(name='SIMULATION_DATA', client=client)
             iteration = DD['iteration_data']['iteration']
+            print(f"{iteration=}")
             data = np.mean(DD['iteration_data']['PRESSURE']['numpy_data']['P0_B0'])
+            print(f"{data=}")
             pub.put((iteration, data, 'somestring'))
+            print("Published data")
     except KeyError as err:
         print('Python ERROR: KeyError: No damaris data of name: ', err)
     except PermissionError as err:

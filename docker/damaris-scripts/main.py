@@ -59,6 +59,7 @@ def blocking_task(client):
     sub = Sub(name='SIMULATION_DATA', client=client)
     while True:
         simulation_data = sub.get() # this blocks until data arrives
+        print(f"got data {simulation_data=}")
         # time.sleep(0.05)
         # pressure_data = random() * 5.0
         count +=1
@@ -82,6 +83,7 @@ for opt, arg in opts:
         sys.exit(2)
 
 # Create a Dask client to use for the Pub-Sub system
+print(f"{sched_file=}")
 client = Client(scheduler_file=sched_file)
 # client = 'mystring'
 
