@@ -11,6 +11,8 @@ bokeh serve main.py --args -s ${DASK_FILE} &> $location/bokeh_log.txt &
 cd -
 
 deactivate
+
+hq server --server-dir=/tmp/hq start &
 sleep 5s
 
 . ${ERT_VENV}/bin/activate

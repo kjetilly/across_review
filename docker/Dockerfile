@@ -49,7 +49,7 @@ RUN python -m venv $FLOW_VENV
 
 RUN . $ERT_VENV/bin/activate && pip3 install pybind11
 RUN . $ERT_VENV/bin/activate && cd ${BUILD_FOLDER} && \
-    git clone https://github.com/vojtechcima/ert.git -b hq && \
+    git clone https://github.com/kjetilly/ert.git -b hq && \
     cd ert && \
     # We need to tag this to get python setup.py to work
     # if you know a better way, please let me know
@@ -57,16 +57,15 @@ RUN . $ERT_VENV/bin/activate && cd ${BUILD_FOLDER} && \
     git config --global user.name 'Dr. User User' && \
     git tag -a v2.36.0 -m 'Version now' && \
     pip install conan && \
-    # Yes, I know this is horrible to install globally:
-    pip install -r dev-requirements.txt && \
-    # Need to update conan remote (old one is deprecated) 
-    # conan remote update conancenter https://center.conan.io && \
-    # pip install xtgeo --upgrade --force-reinstall  && \
-    python setup.py install
-    # Something is messed up with our python setup, but leaving for now:
+    #pip install -r dev-requirements.txt && \
+    pip install --upgrade pip wheel setuptools && \
+    # python setup.py install && \
+    pip install --editable . && \
+    # debugging
+    pip install ipython pudb 
 
 
-RUN . $FLOW_VENV/bin/activate && pip3 install dask[complete] pybind11 mpi4py
+RUN . $FLOW_VENV/bin/activate && pip3 install dask[complete] pybind11 mpi4py ipython pudb
 
 RUN . $FLOW_VENV/bin/activate && cd ${BUILD_FOLDER} &&\
     git clone https://gitlab.inria.fr/Damaris/damaris.git -b dask_pub_sub && \
@@ -113,6 +112,13 @@ RUN . $FLOW_VENV/bin/activate && cd ${BUILD_FOLDER} && \
     cd opm-sources && \
     bash build_opm_component.sh opm-simulators
 
+RUN cd /root && \
+    wget https://github.com/It4innovations/hyperqueue/releases/download/v0.13.0/hq-v0.13.0-linux-x64.tar.gz && \
+    cd /usr/bin && \
+    tar xvf /root/hq-v0.13.0-linux-x64.tar.gz && \
+    rm -rf /root/hq-v0.13.0-linux-x64.tar.gz && \
+    chmod a+rwx hq
+
 # We will have two main scripts that we will use from the outside
 # of the docker container. Both will start the bokeh server and
 # dask scheduler 
@@ -133,3 +139,5 @@ ENV FLOW_DAMARIS_CONFIG_XML_FILE /damaris-scripts/damaris.xml
 EXPOSE 8787 
 # BOKEH
 EXPOSE 5006
+
+
