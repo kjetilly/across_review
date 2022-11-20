@@ -49,18 +49,20 @@ RUN python -m venv $FLOW_VENV
 
 RUN . $ERT_VENV/bin/activate && pip3 install pybind11
 RUN . $ERT_VENV/bin/activate && cd ${BUILD_FOLDER} && \
-    git clone https://github.com/kjetilly/ert.git -b hq && \
-    cd ert && \
+   # git clone https://github.com/kjetilly/ert.git -b hq && \
+    #cd ert && \
     # We need to tag this to get python setup.py to work
     # if you know a better way, please let me know
-    git config --global user.email 'user@user.org' && \
-    git config --global user.name 'Dr. User User' && \
-    git tag -a v2.36.0 -m 'Version now' && \
-    pip install conan && \
-    #pip install -r dev-requirements.txt && \
+    # git config --global user.email 'user@user.org' && \
+    # git config --global user.name 'Dr. User User' && \
+    # git tag -a v2.36.0 -m 'Version now' && \
     pip install --upgrade pip wheel setuptools && \
+    pip install conan && \
+    pip install git+https://github.com/kjetilly/ert.git@hq && \
+    #pip install -r dev-requirements.txt && \
+
     # python setup.py install && \
-    pip install --editable . && \
+    # pip install --editable . && \
     # debugging
     pip install ipython pudb 
 
