@@ -5,7 +5,7 @@ set -e
 CC=$(which gcc)
 CXX=$(which g++)
 location=$(pwd)
-parallel_build_tasks=8
+parallel_build_tasks=2
 for repo in opm-common opm-material opm-grid opm-models opm-simulators
 do
     cd $location

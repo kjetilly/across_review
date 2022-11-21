@@ -13,6 +13,7 @@ cd -
 deactivate
 
 hq server start &
+sleep 5s
 hq worker start &
 sleep 5s
 
