@@ -24,13 +24,13 @@ RUN apt-get update && \
         openmpi-common \
         paraview \
         paraview-dev \
-        #pybind11-dev \
-        #pybind11-json-dev \
+        pybind11-dev \
+        pybind11-json-dev \
         python3 \
         python3-venv \
         #python3-mpi4py \
         python3-pip \
-        #python3-pybind11 \
+        python3-pybind11 \
         unzip \
         wget \
         xsdcxx \
@@ -47,9 +47,9 @@ RUN apt-get update && \
 RUN python -m venv $ERT_VENV
 RUN python -m venv $FLOW_VENV
 
-RUN . $ERT_VENV/bin/activate && pip3 install pybind11
+# RUN . $ERT_VENV/bin/activate && pip3 install pybind11
 RUN . $ERT_VENV/bin/activate && cd ${BUILD_FOLDER} && \
-   # git clone https://github.com/kjetilly/ert.git -b hq && \
+#    git clone https://github.com/kjetilly/ert.git -b hq && \
     #cd ert && \
     # We need to tag this to get python setup.py to work
     # if you know a better way, please let me know
@@ -58,13 +58,12 @@ RUN . $ERT_VENV/bin/activate && cd ${BUILD_FOLDER} && \
     # git tag -a v2.36.0 -m 'Version now' && \
     pip install --upgrade pip wheel setuptools && \
     pip install conan && \
-    pip install git+https://github.com/kjetilly/ert.git@hq && \
+    pip install git+https://github.com/kjetilly/ert.git@hq
     #pip install -r dev-requirements.txt && \
-
     # python setup.py install && \
     # pip install --editable . && \
     # debugging
-    pip install ipython pudb 
+    # pip install ipython pudb 
 
 
 RUN . $FLOW_VENV/bin/activate && pip3 install dask[complete] pybind11 mpi4py ipython pudb

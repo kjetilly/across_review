@@ -1,6 +1,6 @@
 NUM_REALIZATIONS 10
 QUEUE_SYSTEM HQ
--- QUEUE_OPTION LOCAL MAX_RUNNING 2
+--QUEUE_OPTION LOCAL MAX_RUNNING 2
 
 -- Output paths
 RUNPATH output/simulations/runpath/realization-%d/iter-%d

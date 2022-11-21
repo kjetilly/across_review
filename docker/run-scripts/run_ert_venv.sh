@@ -12,10 +12,11 @@ cd -
 
 deactivate
 
-hq server --server-dir=/tmp/hq start &
+hq server start &
+hq worker start &
 sleep 5s
 
 . ${ERT_VENV}/bin/activate
-# Then we can start flow
-export PYTHONPATH=$PYTHONPATH:/opt/src/damaris_python
+# Then we can start ERT
+
 ert "$@"
