@@ -37,9 +37,7 @@ RUN apt-get update && \
         && \
     rm -rf /var/lib/apt/lists/* && \
     # This next section is just to make `python` an available command
-    echo '#!/bin/bash' > /usr/bin/python && \
-    echo 'python3 "$@"' >> /usr/bin/python && \
-    chmod a+x /usr/bin/python && \
+    ln -s /usr/bin/python3 /usr/bin/python && \
     # This next bit is  not nice, but hacking for the demo (zoltan does not find mpi otherwise)
     cp -r /usr/lib/x86_64-linux-gnu/openmpi/include/* /usr/include/ && \
     cp -r /usr/lib/x86_64-linux-gnu/openmpi/lib/* /usr/lib64
