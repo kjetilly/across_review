@@ -14,4 +14,6 @@ models:
     type: docker
     config:
       image: kjetilly/damaris
+      publish: 5006 
+      # maybe expose: 5006
       #rm: false
