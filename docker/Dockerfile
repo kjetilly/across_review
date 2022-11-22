@@ -42,8 +42,8 @@ RUN apt-get update && \
     cp -r /usr/lib/x86_64-linux-gnu/openmpi/include/* /usr/include/ && \
     cp -r /usr/lib/x86_64-linux-gnu/openmpi/lib/* /usr/lib64
 
-RUN python -m venv $ERT_VENV
-RUN python -m venv $FLOW_VENV
+RUN python3 -m venv $ERT_VENV
+RUN python3 -m venv $FLOW_VENV
 
 # RUN . $ERT_VENV/bin/activate && pip3 install pybind11
 RUN . $ERT_VENV/bin/activate && cd ${BUILD_FOLDER} && \
@@ -139,4 +139,13 @@ EXPOSE 8787
 # BOKEH
 EXPOSE 5006
 
+
+ARG USERID=1000
+ARG USERNAME=appuser
+RUN useradd -r -u ${USERID} ${USERNAME}
+RUN mkdir /home/${USERNAME}
+RUN chown ${USERNAME} /home/${USERNAME}
+USER ${USERNAME}
+
+ENV NUMBER_OF_CPUS 8
 

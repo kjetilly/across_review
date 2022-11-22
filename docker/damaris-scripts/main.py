@@ -38,6 +38,7 @@ from bokeh.palettes import Spectral6
 
 from dask.distributed import Client
 from dask.distributed import Sub, Pub
+import re
 
 # from tornado import gen
 
@@ -63,7 +64,8 @@ def blocking_task(client):
         # time.sleep(0.05)
         # pressure_data = random() * 5.0
         count +=1
-        doc.add_next_tick_callback(partial(stream_update, x=simulation_data[0], y=simulation_data[1], sim_string=simulation_data[2]))
+        sample = int(re.search(r'realization-(\d+)\/', simulation_data[2]).group(1))
+        doc.add_next_tick_callback(partial(stream_update, x=simulation_data[0], y=simulation_data[1], sim_string=sample))
 
 
 sched_file = ''
@@ -116,8 +118,13 @@ p = figure(  title='Live update of simulation field data', tooltips=TOOLTIPS)
 p.xaxis.axis_label = 'Timestep'
 p.yaxis.axis_label = 'Pressure (Ave) / bar'
 
+from bokeh.transform import linear_cmap
+from bokeh.palettes import   brewer
+num_sims = 10  # we need to specify this - hardcoded is fine for now
+palate = brewer['Paired'][num_sims]
+l = p.circle(x='x', y='y', color=linear_cmap('sim_string' , palate,  1.0, float(num_sims)), size=5, source=source)
 
-l = p.circle(x='x', y='y',  size=10, source=source)
+#l = p.circle(x='x', y='y',  size=10, source=source)
 # l = p.circle(x='x', y='y', color=factor_cmap('sim_string', palette=Spectral6, factors=source.data['sim_string']) , size=10, source=source) 
 
 

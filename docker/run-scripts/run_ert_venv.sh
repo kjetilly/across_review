@@ -4,6 +4,11 @@
 # First we start dask
 location=$(pwd)
 dask-scheduler --scheduler-file ${DASK_FILE} &> dask_log.txt &
+sleep 5s
+for _ in `seq 1 $NUMBER_OF_CPUS`
+do
+    dask-worker --scheduler-file ${DASK_FILE} &> dask_worker_0.txt &
+done
 
 # Then the Bokeh server
 cd /damaris-scripts/
@@ -14,8 +19,9 @@ deactivate
 
 hq server start &
 sleep 5s
-hq worker start &
-sleep 5s
+hq worker start --cpus ${NUMBER_OF_CPUS} &
+
+sleep 10s
 
 . ${ERT_VENV}/bin/activate
 # Then we can start ERT
