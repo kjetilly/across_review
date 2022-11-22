@@ -1,0 +1,17 @@
+version: v1.0
+workflows:
+  opmflow_workflow:
+    type: cwl
+    config:
+      file: cwl/workflow.cwl
+      settings: cwl/config.yaml
+    bindings:
+     - step: /ertopmflow
+       target:
+         model: docker-ertopmflow
+models:
+  docker-ertopmflow:
+    type: docker
+    config:
+      image: kjetilly/damaris
+      #rm: false
