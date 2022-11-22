@@ -2,13 +2,13 @@ The relevant files to look at are:
 
 * `across_review/docker/run-scripts/run_ert_venv.sh`: This is the entrypoint for the dockerfile and where I start the dask-scheduler, dask-worker and the bokeh server
 
-* `across_review/blob/main/docker/run-scripts/flow_venv.sh` this is where I run flow from within ERT. It essentially just calls `mpirun -np 2 flow --enable-damaris-output=true "$@"`
+* `across_review/docker/run-scripts/flow_venv.sh` this is where I run flow from within ERT. It essentially just calls `mpirun -np 2 flow --enable-damaris-output=true "$@"`
 
-* `across_review/blob/main/docker/damaris-scripts/damaris.xml` this is the xml I provide damaris through flow (will get the regexp treatment)
+* `across_review/docker/damaris-scripts/damaris.xml` this is the xml I provide damaris through flow (will get the regexp treatment)
 
-* `across_review/blob/main/docker/damaris-scripts/publish_data.py` this is where I publish the data from damaris 
+* `across_review/docker/damaris-scripts/publish_data.py` this is where I publish the data from damaris 
 
-* `across_review/blob/main/docker/damaris-scripts/main.py` the bokeh server app. 
+* `across_review/docker/damaris-scripts/main.py` the bokeh server app. 
 
 You should be able to run this yourself by running from the root of the repository
 
