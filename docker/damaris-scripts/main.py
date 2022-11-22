@@ -90,7 +90,7 @@ client = Client(scheduler_file=sched_file)
 # client = 'mystring'
 
 # this must only be modified from a Bokeh session callback
-source = ColumnDataSource(data=dict(x=[0], y=[0], sim_string=['no_sim_string']))
+source = ColumnDataSource(data=dict(x=[], y=[], sim_string=['no_sim_string']))
 
 # This is important! Save curdoc() to make sure all threads
 # see then same document.
