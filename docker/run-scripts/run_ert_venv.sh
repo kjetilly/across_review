@@ -5,10 +5,10 @@
 location=$(pwd)
 dask-scheduler --scheduler-file ${DASK_FILE} &> dask_log.txt &
 sleep 5s
-# for _ in `seq 1 $NUMBER_OF_CPUS`
-# do
-    dask-worker --scheduler-file ${DASK_FILE} &> dask_worker_0.txt &
-# done
+for i in `seq 1 $NUMBER_OF_CPUS`
+do
+    dask-worker --scheduler-file ${DASK_FILE} &> dask_worker_${i}.txt &
+done
 
 # Then the Bokeh server
 cd /damaris-scripts/

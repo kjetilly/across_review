@@ -42,19 +42,19 @@ from dask.distributed import Client
 from dask.distributed import Sub, Pub
 import re
 
-# from tornado import gen
+from tornado import gen
 
 import sys
 import getopt
 import time
 
 
-# @gen.coroutine
-async def stream_update(x, y, sim_string):
+@gen.coroutine
+def stream_update(x, y, sim_string):
 
     # rollover limits number of data points that will be kept for display
     source.stream(dict(x=[x], y=[y], sim_string=[
-                  sim_string]), rollover=1000000)
+                  sim_string]), rollover=10000)
     # palette = d3['Category10'][len(source['sim_string'].unique())]
     # color_map = CategoricalColorMapper(factors=source['sim_string'].unique(),palette=palette)
 
@@ -98,7 +98,7 @@ client = Client(scheduler_file=sched_file)
 # client = 'mystring'
 
 # this must only be modified from a Bokeh session callback
-source = ColumnDataSource(data=dict(x=[], y=[], sim_string=['no_sim_string']))
+source = ColumnDataSource(data=dict(x=[], y=[], sim_string=[]))
 
 # This is important! Save curdoc() to make sure all threads
 # see then same document.
@@ -146,3 +146,4 @@ doc.add_root(layout)
 
 thread = Thread(target=blocking_task,  args=[client])
 thread.start()
+# blocking_task(client)
