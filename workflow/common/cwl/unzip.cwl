@@ -8,6 +8,6 @@ inputs:
       position: 0
 outputs:
   unzipped_files:
-    type: File[] 
+    type: Directory
     outputBinding:
       glob: "*"
