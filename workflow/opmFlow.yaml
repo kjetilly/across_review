@@ -14,6 +14,8 @@ models:
     type: docker
     config:
       image: kjetilly/damaris
-      publish: 5006 
+      publish: ['5006:5006']
+      #privileged: true
+      volume: ['/tmp:/tmp'] 
       # maybe expose: 5006
       #rm: false

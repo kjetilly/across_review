@@ -26,6 +26,10 @@ steps:
       class: CommandLineTool
       baseCommand: ['run_ert_venv.sh']
       requirements:
+        EnvVarRequirement:
+          envDef:
+            OMPI_ALLOW_RUN_AS_ROOT: "1"
+            OMPI_ALLOW_RUN_AS_ROOT_CONFIRM: "1"
         InitialWorkDirRequirement:
           listing:          
             - $(inputs.input_files)
@@ -41,7 +45,7 @@ steps:
         workdir:
           type: string
         input_files:
-          type: Directory
+          type: Directory[]
         input_ensemble_path:
           type: string
       outputs:
