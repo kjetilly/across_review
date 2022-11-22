@@ -7,8 +7,6 @@
 #
 
 
-
-
 # N.B. This file is read by each Damaris server process on each iteration that is
 #      specified by the frequency="" in the <pyscript> XML sttribute.
 
@@ -20,16 +18,21 @@ def main(DD):
         from dask.distributed import Sub, Pub
         import numpy as np
         import os
+        import re
         iteration = DD['iteration_data']['iteration']
         # if iteration % 10 != 0:
         #     return
         with Client(scheduler_file=DD['dask_env']['dask_scheduler_file']) as client:
             pub = Pub(name='SIMULATION_DATA', client=client)
-            
+
             print(f"{iteration=}")
-            data = np.mean(DD['iteration_data']['PRESSURE']['numpy_data']['P0_B0']*1e-5)
+            data = np.mean(DD['iteration_data']['PRESSURE']
+                           ['numpy_data']['P0_B0']*1e-5)
             print(f"{data=}")
-            pub.put((iteration, data, os.getcwd()))
+            sample = int(
+                re.search(r'realization-(\d+)\/', os.getcwd()).group(1))
+
+            pub.put((iteration, data, sample))
             print("Published data")
     except KeyError as err:
         print('Python ERROR: KeyError: No damaris data of name: ', err)
@@ -42,7 +45,7 @@ def main(DD):
     except NameError as err:
         print('Python ERROR: NameError: ', err)
     except Exception as err:
-        print("Unknown error : " , err)
+        print("Unknown error : ", err)
     # finally: is always called.
     finally:
         pass
