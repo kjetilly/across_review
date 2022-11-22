@@ -20,12 +20,14 @@ def main(DD):
         from dask.distributed import Sub, Pub
         import numpy as np
         import os
-
+        iteration = DD['iteration_data']['iteration']
+        # if iteration % 10 != 0:
+        #     return
         with Client(scheduler_file=DD['dask_env']['dask_scheduler_file']) as client:
             pub = Pub(name='SIMULATION_DATA', client=client)
-            iteration = DD['iteration_data']['iteration']
+            
             print(f"{iteration=}")
-            data = np.mean(DD['iteration_data']['PRESSURE']['numpy_data']['P0_B0'])
+            data = np.mean(DD['iteration_data']['PRESSURE']['numpy_data']['P0_B0']*1e-5)
             print(f"{data=}")
             pub.put((iteration, data, os.getcwd()))
             print("Published data")
@@ -39,6 +41,8 @@ def main(DD):
         print('Python ERROR: Damaris data not assigned!: ', err)
     except NameError as err:
         print('Python ERROR: NameError: ', err)
+    except Exception as err:
+        print("Unknown error : " , err)
     # finally: is always called.
     finally:
         pass
