@@ -41,7 +41,7 @@ steps:
         workdir:
           type: string
         input_files:
-          type: File[]
+          type: Directory
         input_ensemble_path:
           type: string
       outputs:
