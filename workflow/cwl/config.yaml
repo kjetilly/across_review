@@ -1,4 +1,4 @@
 dataset_url: https://github.com/kjetilly/across_review/archive
 dataset_name: master.zip
-input_ensemble_base: spe1_ensemble_workflow-main/ert_example
+input_ensemble_base: across_review-main/ert_example
 input_ensemble_file: spe1.ert
