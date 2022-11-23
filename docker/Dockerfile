@@ -4,9 +4,13 @@ FROM ubuntu:22.10
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG BUILD_FOLDER=/opt/src
+ARG BUILD_TYPE=Release
+ENV CMAKE_BUILD_TYPE=${BUILD_TYPE}
+
 
 ENV ERT_VENV /venvs/ert
 ENV FLOW_VENV /venvs/flow
+
 
 RUN mkdir -p $BUILD_FOLDER
 RUN apt-get update && \
@@ -75,6 +79,7 @@ RUN . $FLOW_VENV/bin/activate && cd ${BUILD_FOLDER} &&\
         -DENABLE_HDF5=ON \
         -DENABLE_PYTHON=ON \
         -DENABLE_PYTHONMOD=ON \
+        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
         -DGENERATE_MODEL=ON \
         -DCMAKE_INSTALL_PREFIX=${BUILD_FOLDER}/damaris-install \
         -DPYTHON_MODULE_INSTALL_PATH=${BUILD_FOLDER}/damaris_python && \

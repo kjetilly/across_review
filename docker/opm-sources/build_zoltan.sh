@@ -36,7 +36,7 @@ cmake \
     -D TPL_ENABLE_MPI:BOOL=ON \
     -D Trilinos_ENABLE_ALL_PACKAGES:BOOL=OFF \
     -D Trilinos_ENABLE_Zoltan:BOOL=ON \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
     -Wno-dev \
     ../
 make -j $parallel_build_tasks

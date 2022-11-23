@@ -37,7 +37,7 @@ cmake -DCMAKE_C_COMPILER=$CC \
     -DCMAKE_CXX_COMPILER=$CXX \
     -DUSE_MPI=1  \
     -DCMAKE_PREFIX_PATH="$(realpath $location/../damaris-install);$location/zoltan/;$location/dune;$location/boost;$location/opm-common;$location/opm-material;$location/opm-grid;$location/opm-models" \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
     -DBUILD_EXAMPLES=OFF \
     -DBUILD_TESTING=OFF \
     -Wno-dev \

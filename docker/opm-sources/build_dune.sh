@@ -36,6 +36,7 @@ do
         -DCMAKE_C_COMPILER=$CC \
         -DCMAKE_PREFIX_PATH=$install_prefix \
         -DCMAKE_INSTALL_PREFIX=$install_prefix \
+        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
         -DCMAKE_CXX_COMPILER=$CXX \
         ..
     make -j $parallel_build_tasks
