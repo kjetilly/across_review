@@ -139,6 +139,9 @@ EXPOSE 8787
 # BOKEH
 EXPOSE 5006
 
+COPY run-scripts /run-scripts
+RUN chmod -R a+rX /run-scripts
+
 
 ARG USERID=1000
 ARG USERNAME=appuser
