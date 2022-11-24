@@ -1,0 +1,17 @@
+ert_example/output
+ert_example/*log*
+opm-temp/opm-simulators
+opm-temp/opm-model
+opm-temp/opm-materials
+opm-temp/opm-grid
+opm-temp/opm-common
+opm-temp/zoltan
+opm-temp/dune-common
+opm-temp/dune-geometry
+opm-temp/dune-grid
+opm-temp/dune-istl
+ert_example/EXAMPLE*
+ert_example/dask_worker*
+
+
+
