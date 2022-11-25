@@ -12,7 +12,13 @@
 
 
 def main(DD):
-    print("Running iteration")
+    should_flush = False
+    def printfunction(statement, flush=False):
+        pass
+    printfunction("Running iteration", flush = should_flush)
+
+    
+
     try:
         from dask.distributed import Client
         from dask.distributed import Sub, Pub
@@ -22,30 +28,36 @@ def main(DD):
         iteration = DD['iteration_data']['iteration']
         # if iteration % 10 != 0:
         #     return
-        with Client(scheduler_file=DD['dask_env']['dask_scheduler_file']) as client:
+        with Client(scheduler_file=DD['dask_env']['dask_scheduler_file'], timeout='2s') as client:
             pub = Pub(name='SIMULATION_DATA', client=client)
 
-            print(f"{iteration=}")
-            data = np.mean(DD['iteration_data']['PRESSURE']
-                           ['numpy_data']['P0_B0']*1e-5)
-            print(f"{data=}")
-            sample = int(
-                re.search(r'realization-(\d+)\/', os.getcwd()).group(1))
+            printfunction(f"{iteration=}", flush = should_flush)
+            try:
+                data = np.mean(DD['iteration_data']['PRESSURE']['numpy_data']['P0_B0']*1e-5)
+            except: #Yes, ugly
+                data = 42.0
+
+            printfunction(f"{data=}", flush = should_flush)
+            try:
+                sample = int(
+                    re.search(r'realization-(\d+)\/', os.getcwd()).group(1))
+            except:
+                sample = 0
 
             pub.put((iteration, data, sample))
-            print("Published data")
+            printfunction("Published data", flush = should_flush)
     except KeyError as err:
-        print('Python ERROR: KeyError: No damaris data of name: ', err)
+        print('Python ERROR: KeyError: No damaris data of name: ', err, flush = should_flush)
     except PermissionError as err:
-        print('Python ERROR: PermissionError!: ', err)
+        print('Python ERROR: PermissionError!: ', err, flush = should_flush)
     except ValueError as err:
-        print('Python ERROR: Damaris Data problem!: ', err)
+        print('Python ERROR: Damaris Data problem!: ', err, flush = should_flush)
     except UnboundLocalError as err:
-        print('Python ERROR: Damaris data not assigned!: ', err)
+        print('Python ERROR: Damaris data not assigned!: ', err, flush = should_flush)
     except NameError as err:
-        print('Python ERROR: NameError: ', err)
+        print('Python ERROR: NameError: ', err, flush = should_flush)
     except Exception as err:
-        print("Unknown error : ", err)
+        print("Unknown error : ", err, flush = should_flush)
     # finally: is always called.
     finally:
         pass
