@@ -146,8 +146,6 @@ if __name__ == '__main__':
 
     client = Client(scheduler_file=sched_file)
 
-    # Maximum number of samples to buffer
-
     datastore = DataStore()
     thread = Thread(target=blocking_task,  args=[client, datastore])
     thread.start()
