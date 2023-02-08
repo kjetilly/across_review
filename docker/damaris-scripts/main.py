@@ -18,6 +18,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import os
+import copy
 
 class DataStore:
 
@@ -48,7 +49,7 @@ class DataStore:
             self._condition.notify_all()
         
     def get_batch(self, batch_size, min_batch_size=0):
-        assert min_batch_size < self._max_samples
+        assert min_batch_size <= self._max_samples
 
         with self._condition:
             while len(self) < min_batch_size:
@@ -57,7 +58,10 @@ class DataStore:
             permuted_indices = np.random.permutation(all_indices)
             batch_size = min(batch_size, self._number_of_samples)
             sample_indices = permuted_indices[:batch_size]
-            samples_np = self._samples[sample_indices,:,:]
+
+            # Note we really want to deepcopy this. pytorch says it
+            # shares the memory location with numpy, which is not what we want here
+            samples_np = copy.deepcopy(self._samples[sample_indices,:,:])
             return torch.tensor(samples_np)
 
     def __len__(self):
