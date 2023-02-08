@@ -31,7 +31,7 @@ class DataStore:
 
     @property
     def has_free_space(self):
-        return self._number_of_samples < self._max_samples - 1
+        return self._number_of_samples < self._max_samples
 
     def put(self, data):
         data = np.array(data)
