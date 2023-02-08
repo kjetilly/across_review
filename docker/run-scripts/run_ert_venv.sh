@@ -15,6 +15,7 @@ done
 # Then the Bokeh server
 cd /damaris-scripts/
 python main.py -s ${DASK_FILE} &> $location/bokeh_log.txt &
+learning_pid=$!
 cd -
 
 deactivate
@@ -29,3 +30,6 @@ sleep 10s
 # Then we can start ERT
 
 ert "$@"
+
+# Stop the python learning
+kill -SIGTERM $learning_pid
