@@ -147,7 +147,7 @@ if __name__ == '__main__':
     client = Client(scheduler_file=sched_file)
 
     # Maximum number of samples to buffer
-    maxsize = 10
+
     datastore = DataStore()
     thread = Thread(target=blocking_task,  args=[client, datastore])
     thread.start()
@@ -157,13 +157,3 @@ if __name__ == '__main__':
     model = NeuralNetwork()
     train(model, datastore, callback)
     
-    # while True:
-    #     data = dataqueue.get()
-    #     print("Got data from the queue")
-    #     print(f"{os.getcwd()=}")
-    #     timestep = data[0]
-    #     sample = data[2]
-    #     pressure = data[1]
-    #     print(f"{timestep=}, {sample=}")
-
-    #     np.savetxt(os.path.join(output_dir, f'data_{sample}_{timestep}.txt'), pressure)
