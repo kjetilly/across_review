@@ -14,7 +14,7 @@ done
 
 # Then the Bokeh server
 cd /damaris-scripts/
-bokeh serve main.py --args -s ${DASK_FILE} &> $location/bokeh_log.txt &
+python main.py -s ${DASK_FILE} &> $location/bokeh_log.txt &
 cd -
 
 deactivate

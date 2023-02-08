@@ -73,13 +73,11 @@ RUN . $FLOW_VENV/bin/activate && pip3 install -r /damaris-requirements.txt
 
 
 RUN mkdir /damaris-extra
-COPY damaris-scripts/PyAction* /damaris-extra/
+
 RUN . $FLOW_VENV/bin/activate && \
      cd ${BUILD_FOLDER} &&\
     git clone https://gitlab.inria.fr/Damaris/damaris.git -b dask_pub_sub && \
     cd damaris && \
-    cp /damaris-extra/PyAction.hpp include/damaris/scripts/PyAction.hpp && \
-    cp /damaris-extra/PyAction.cpp src/scripts/PyAction.hpp && \
     mkdir -p build && \
     cd build && \
     cmake .. -DCMAKE_BUILD_TYPE=Release \

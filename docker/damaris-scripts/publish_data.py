@@ -33,9 +33,9 @@ def main(DD):
 
             printfunction(f"{iteration=}", flush = should_flush)
             try:
-                data = np.mean(DD['iteration_data']['PRESSURE']['numpy_data']['P0_B0']*1e-5)
+                data = DD['iteration_data']['PRESSURE']['numpy_data']['P0_B0']*1e-5
             except: #Yes, ugly
-                data = 42.0
+                data = np.array([42.0])
 
             printfunction(f"{data=}", flush = should_flush)
             try:
