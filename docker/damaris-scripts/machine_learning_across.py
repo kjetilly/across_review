@@ -10,8 +10,7 @@ from tornado import gen
 import sys
 import getopt
 import time
-from dask.distributed import Client
-from dask.distributed import Sub
+
 import queue
 import threading
 import numpy as np
@@ -19,6 +18,18 @@ import torch
 import torch.nn as nn
 import os
 import copy
+
+def reorder_data(data):
+    nx = 20
+    ny = 20
+    nz = 16 # TODO: We cut the upper 2 cells for now.
+    z = np.zeros((nz, ny, nx), dtype=np.float32)
+    for i in range(nz):
+        for j in range(ny):
+            for k in range(nx):
+                index = i*ny * nx + j * nx + i
+                z[i,j,k] = data[index]
+    return z
 
 class DataStore:
 
@@ -35,7 +46,8 @@ class DataStore:
         return self._number_of_samples < self._max_samples
 
     def put(self, data):
-        data = np.array(data)
+        data = reorder_data(np.array(data))
+       
         with self._condition:
             if len(self) == 0:
                 self._samples = np.zeros((self._max_samples, 1, *data.shape), dtype=np.float32)
@@ -107,26 +119,36 @@ class SaveEvery:
             np.savetxt(loss_save_path, loss_per_epoch)
 
 def blocking_task(client, dataqueue):
+
+    from dask.distributed import Sub
     sub = Sub(name='SIMULATION_DATA', client=client)
     while True:
         simulation_data = sub.get()  # this blocks until data arrives
         print("Got data, putting it on the queue")
+
+        if np.prod(simulation_data.shape) == 1:
+            continue
+        output_dir = os.environ['ACROSS_DATA_DIR']
+        np.savetxt(os.path.join(output_dir, f'larger_data_{simulation_data[0]}_{simulation_data[2]}.txt'), simulation_data[1])
+
         dataqueue.put(simulation_data[1])
 
 def make_conv():
     dnn_down = nn.Sequential(
-        nn.Conv1d(1, 16, 3, padding=1),
-        nn.MaxPool1d(2,2),
+        nn.Conv3d(1, 16, 3, padding=(1,1,1)),
+        nn.MaxPool3d(2,2),
         nn.ReLU(),
-        nn.Conv1d(16, 1, 3, padding=1),
-        nn.MaxPool1d(2,2))
+        nn.Conv3d(16, 1, 3, padding=(1,1,1)),
+        nn.MaxPool3d(2,2))
     
     dnn_up = nn.Sequential(
-        nn.ConvTranspose1d(1, 16, 2, stride=2),
+        nn.ConvTranspose3d(1, 16, 2, stride=2),
         #nn.ReLU(),
         #nn.ConvTranspose1d(16, 16, 2, stride=2),
         nn.ReLU(),
-        nn.ConvTranspose1d(16, 1, 2, stride=2))
+        nn.ConvTranspose3d(16, 1, 2, stride=(2, 2,2)),
+        )
+    
     return dnn_down, dnn_up
 
 class NeuralNetwork(nn.Module):
@@ -140,7 +162,7 @@ class NeuralNetwork(nn.Module):
 if __name__ == '__main__':
     print("Running dask server")
     import argparse
-
+    from dask.distributed import Client
 
 
     parser = argparse.ArgumentParser(description="Runs the server doing the machine learning.")

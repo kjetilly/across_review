@@ -21,7 +21,7 @@ TITLE
    SPE1 - CASE 2
 
 DIMENS
-   10 10 3 /
+   20 20 18 /
 
 -- The number of equilibration regions is inferred from the EQLDIMS
 -- keyword.
@@ -74,17 +74,17 @@ NOECHO
 
 DX 
 -- There are in total 300 cells with length 1000ft in x-direction	
-   	300*1000 /
+   	7200*1000 /
 DY
 -- There are in total 300 cells with length 1000ft in y-direction	
-	300*1000 /
+	7200*1000 /
 DZ
 -- The layers are 20, 30 and 50 ft thick, in each layer there are 100 cells
-	100*20 100*30 100*50 /
+	2400*20 2400*30 2400*50 /
 
 TOPS
 -- The depth of the top of each grid block
-	100*8325 /
+	2400*8325 /
 
 INCLUDE
    'porosity.grdecl' /
@@ -93,16 +93,16 @@ INCLUDE
 
 PERMX
 -- The layers have perm. 500mD, 50mD and 200mD, respectively.
-	100*500 100*50 100*200 /
+	2400*500 2400*50 2400*200 /
 
 PERMY
 -- Equal to PERMX
-	100*500 100*50 100*200 /
+	2400*500 2400*50 2400*200 /
 
 PERMZ
 -- Cannot find perm. in z-direction in Odeh's paper
 -- For the time being, we will assume PERMZ equal to PERMX and PERMY:
-	100*500 100*50 100*200 /
+	2400*500 2400*50 2400*200 /
 ECHO
 
 PROPS

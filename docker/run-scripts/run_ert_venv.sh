@@ -14,7 +14,7 @@ done
 
 # Then the Bokeh server
 cd /damaris-scripts/
-python main.py -s ${DASK_FILE} &> $location/bokeh_log.txt &
+python machine_learning_across.py -s ${DASK_FILE} &> $location/bokeh_log.txt &
 learning_pid=$!
 cd -
 
