@@ -24,11 +24,11 @@ def reorder_data(data):
     ny = 20
     nz = 24
     z = np.zeros((nz, ny, nx), dtype=np.float32)
-    for i in range(nz):
+    for k in range(nz):
         for j in range(ny):
-            for k in range(nx):
+            for i in range(nx):
                 index = k * ny * nx + j * nx + i
-                z[i,j,k] = data[index]
+                z[k,j,i] = data[index]
     return z
 
 class DataStore:
