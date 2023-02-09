@@ -22,12 +22,12 @@ import copy
 def reorder_data(data):
     nx = 20
     ny = 20
-    nz = 16 # TODO: We cut the upper 2 cells for now.
+    nz = 24
     z = np.zeros((nz, ny, nx), dtype=np.float32)
     for i in range(nz):
         for j in range(ny):
             for k in range(nx):
-                index = i*ny * nx + j * nx + i
+                index = k * ny * nx + j * nx + i
                 z[i,j,k] = data[index]
     return z
 
@@ -126,7 +126,7 @@ def blocking_task(client, dataqueue):
         simulation_data = sub.get()  # this blocks until data arrives
         print("Got data, putting it on the queue")
 
-        if np.prod(simulation_data.shape) == 1:
+        if np.prod(simulation_data[1].shape) == 1:
             continue
         output_dir = os.environ['ACROSS_DATA_DIR']
         np.savetxt(os.path.join(output_dir, f'larger_data_{simulation_data[0]}_{simulation_data[2]}.txt'), simulation_data[1])

@@ -25,6 +25,7 @@ def main(DD):
         import numpy as np
         import os
         import re
+        import logging
         iteration = DD['iteration_data']['iteration']
         # if iteration % 10 != 0:
         #     return
@@ -34,8 +35,10 @@ def main(DD):
             printfunction(f"{iteration=}", flush = should_flush)
             try:
                 data = DD['iteration_data']['PRESSURE']['numpy_data']['P0_B0']*1e-5
-            except: #Yes, ugly
-                data = np.array([42.0])
+            except: 
+                # If we don't succeed in getting the data, we just ignore it
+                logging.warning("Failed getting data")
+                return
 
             printfunction(f"{data=}", flush = should_flush)
             try:
