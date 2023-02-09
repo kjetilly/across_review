@@ -40,6 +40,9 @@ def main(DD):
                 logging.warning("Failed getting data")
                 return
 
+            if np.any(np.isnan(data)):
+                logging.warning("nan in pressure data")
+                return
             printfunction(f"{data=}", flush = should_flush)
             try:
                 sample = int(
