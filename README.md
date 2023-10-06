@@ -5,9 +5,9 @@ To run this yourselves, you could do something like:
    cd docker
    docker build . -t opmlearn
    cd ../ert_example
-   docker run -it --rm -u $(id -u):$(id -g) -w $(pwd) -v $(pwd):$(pwd) -e
-   ACROSS_DATA_DIR=$(pwd)/data opmlearn  run_ert_venv.sh ensemble_experiment
+   docker run -it --rm -u $(id -u):$(id -g) -w $(pwd) -v $(pwd):$(pwd) -e \
+       ACROSS_DATA_DIR=$(pwd)/data opmlearn  run_ert_venv.sh ensemble_experiment
    spe1_local.ert
 ```
 
-This will also save the data to `$(pwd)/data`` (account for at least **12 TB**).
+By default, we do not save the data for this large case (would require 12 TB). If you want to save the data, you can enable this by adding `-e ACROSS_SAVE_DATA=TRUE` to the docker command line, this will also save the data to `$(pwd)/data`` (account for at least **12 TB**).

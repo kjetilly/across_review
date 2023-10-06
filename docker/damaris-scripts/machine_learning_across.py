@@ -129,7 +129,10 @@ def blocking_task(client, dataqueue):
         if np.prod(simulation_data[1].shape) == 1:
             continue
         output_dir = os.environ['ACROSS_DATA_DIR']
-        np.savetxt(os.path.join(output_dir, f'larger_data_{simulation_data[0]}_{simulation_data[2]}.txt'), simulation_data[1])
+
+        if os.getenv("ACROSS_SAVE_DATA", 'False').lower() in ('true', '1', 't'):
+            np.savetxt(os.path.join(output_dir, f'larger_data_{simulation_data[0]}_{simulation_data[2]}.txt'), simulation_data[1])
+            
 
         dataqueue.put(simulation_data[1])
 
