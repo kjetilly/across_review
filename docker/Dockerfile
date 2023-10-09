@@ -76,7 +76,7 @@ RUN mkdir /damaris-extra
 
 RUN . $FLOW_VENV/bin/activate && \
      cd ${BUILD_FOLDER} &&\
-    git clone https://gitlab.inria.fr/Damaris/damaris.git -b dask_pub_sub && \
+    git clone https://gitlab.inria.fr/Damaris/damaris.git && \
     cd damaris && \
     mkdir -p build && \
     cd build && \
