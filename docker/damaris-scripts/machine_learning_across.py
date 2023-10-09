@@ -20,9 +20,9 @@ import os
 import copy
 
 def reorder_data(data):
-    nx = 20
-    ny = 20
-    nz = 24
+    nx = 100
+    ny = 100
+    nz = 150-6 # Why?
     z = np.zeros((nz, ny, nx), dtype=np.float32)
     for k in range(nz):
         for j in range(ny):
@@ -38,6 +38,8 @@ class DataStore:
         self._max_samples = max_samples
         self._lock = threading.RLock()
         self._number_of_samples = 0
+        self._samples = None
+
 
         self._condition = threading.Condition(self._lock)
 
@@ -64,7 +66,7 @@ class DataStore:
         assert min_batch_size <= self._max_samples
 
         with self._condition:
-            while len(self) < min_batch_size:
+            while len(self) < min_batch_size and self._samples is None:
                 self._condition.wait()
             all_indices = np.arange(0, len(self))
             permuted_indices = np.random.permutation(all_indices)
