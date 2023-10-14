@@ -27,6 +27,16 @@ then
 fi
 
 
+if [[ -z "${MACHINE_LEARNING_SCRIPT}" ]]
+then
+    echo "MACHINE_LEARNING_SCRIPT not set"
+    exit 1
+elif [ ! -f "${MACHINE_LEARNING_SCRIPT}" ]
+then
+    echo "MACHINE_LEARNING_SCRIPT=${MACHINE_LEARNING_SCRIPT} does not exist"
+    exit 1
+fi
+
 
 # 0) Start the HQ server on the login node
 echo "Starting the HQ server"
