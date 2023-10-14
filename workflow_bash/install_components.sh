@@ -25,8 +25,8 @@ python3 -m venv $FLOW_VENV
 . $ERT_VENV/bin/activate 
 cd ${BUILD_FOLDER}
 pip install --upgrade pip wheel setuptools
-pip install conan
-conan profile detect
+pip install cmake==3.16.8
+pip install conan==1.52.0
 pip install git+https://github.com/kjetilly/ert.git@hq
 deactivate
 
