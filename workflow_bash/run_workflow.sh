@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# 0) Start the HQ server on the login node
+echo "Starting the HQ server"
+hq server start &> hq_server_log.txt &
+sleep 30s # Make sure it is really started before we go on
+
+# 1) Start the dask scheduler on login node
+echo "Starting dask scheduler"
+. ${FLOW_VENV}/bin/activate
+dask-scheduler --scheduler-file ${DASK_FILE} &> dask_scheduler_log.txt &
+deactivate
+sleep 30s # Make sure it is really started before we go on
+
+
+# 2) Submit some HQ workers to the slurm queue.
+# TODO: Replace with slurm
+echo "Starting HQ workers"
+hq worker start --cpus 3 &> hq_worker_log.txt &
+sleep 30s # Make sure it is really started before we go on
+
+
+# 3) Queue the start of some dask workers through HQ ("some" is loosely defined, but say 2 for a very simple example)
+echo "Queuing some dask workers"
+. ${FLOW_VENV}/bin/activate
+hq submit dask-worker --scheduler-file ${DASK_FILE}
+deactivate
+
+
+# 4) Queue the start of a machine learning Python script through HQ (this script essentially just runs an infinite loop training as long as it can)
+echo "Queuing ML script"
+. ${FLOW_VENV}/bin/activate
+hq submit python ${MACHINE_LEARNING_SCRIPT} -s ${DASK_FILE}
+deactivate
+
+
+# 5) Run ert on the login node. ERT will then queue jobs through HQ.
+echo "Starting ERT"
+. ${ERT_VENV}/bin/activate
+ert "$@"
