@@ -26,6 +26,7 @@ python3 -m venv $FLOW_VENV
 cd ${BUILD_FOLDER}
 pip install --upgrade pip wheel setuptools
 pip install conan
+conan profile detect
 pip install git+https://github.com/kjetilly/ert.git@hq
 deactivate
 
