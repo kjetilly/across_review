@@ -11,16 +11,16 @@ The default resolution is 10 x 10 x 3. This will generate a
 a new case with resolution nx * 10 x ny * 10 x nz * 3
         """)
 
-    parser.add_argument('--nx,-x', type=int, default=10,
+    parser.add_argument('-x', '--nx', type=int, default=10,
                         help='Number of times to increase x.')
 
-    parser.add_argument('--ny,-y', type=int, default=10,
+    parser.add_argument('-y', '--ny', type=int, default=10,
                         help='Number of times to increase y.')
 
-    parser.add_argument('--nz,-z', type=int, default=50,
+    parser.add_argument('-z', '--nz', type=int, default=50,
                         help='Number of times to increase z.')
 
-    parser.add_argument('--output-dir,-o', type=str, default='generated_highres_spe1',
+    parser.add_argument('-o', '--output-dir', type=str, default='generated_highres_spe1',
                         help='Outputdir to place the new ensemble.')
 
     args = parser.parse_args()
