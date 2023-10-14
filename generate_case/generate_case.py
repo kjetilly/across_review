@@ -50,6 +50,6 @@ a new case with resolution nx * 10 x ny * 10 x nz * 3
                 with open(targetfile, 'w') as target:
                     for l in source:
                         for k, v in replacements.items():
-                            l_transformed = l.replace(k, v)
+                            l_transformed = l.replace(k, str(v))
 
                         target.write(f'{l_transformed}\n')
