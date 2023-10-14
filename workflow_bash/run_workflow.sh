@@ -1,5 +1,33 @@
 #!/bin/bash
 
+if [[ -z "${FLOW_VENV}" ]]
+then
+    echo "FLOW_VENV not set"
+    exit 1
+elif [ ! -f "${FLOW_VENV}/bin/activate" ]
+then
+    echo "FLOW_VENV/bin/activate does not exist"
+    exit 1
+fi
+
+if [[ -z "${ERT_VENV}" ]]
+then
+    echo "ERT_VENV not set"
+    exit 1
+elif [ ! -f "${ERT_VENV}/bin/activate" ]
+then
+    echo "ERT_VENV/bin/activate does not exist"
+    exit 1
+fi
+
+if [[ -z "${DASK_FILE}" ]]
+then
+    echo "DASK_FILE not set"
+    exit 1
+fi
+
+
+
 # 0) Start the HQ server on the login node
 echo "Starting the HQ server"
 hq server start &> hq_server_log.txt &
