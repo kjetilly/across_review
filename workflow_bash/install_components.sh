@@ -11,10 +11,12 @@ target_dir=$1
 mkdir -p $target_dir
 # see https://stackoverflow.com/a/246128
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
+docker_dir=$(dirname $SCRIPT_DIR)/docker
 ERT_VENV=${target_dir}/ert_venv
 FLOW_VENV=${target_dir}/flow_venv
 BUILD_FOLDER=${target_dir}/src
+
+mkdir -p ${BUILD_FOLDER}
 BUILD_TYPE=Release
 
 python3 -m venv $ERT_VENV
