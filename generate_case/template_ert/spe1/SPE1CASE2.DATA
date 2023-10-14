@@ -21,7 +21,7 @@ TITLE
    SPE1 - CASE 2
 
 DIMENS
-   100 100 150 /
+   ACROSS_NUM_X ACROSS_NUM_Y ACROSS_NUM_Z /
 
 -- The number of equilibration regions is inferred from the EQLDIMS
 -- keyword.
@@ -74,34 +74,34 @@ NOECHO
 
 DX 
 -- There are in total 300 cells with length 1000ft in x-direction	
-   	1200000*1000 /
+   	ACROSS_NUM_GRID_CELLS*1000 /
 DY
 -- There are in total 300 cells with length 1000ft in y-direction	
-	1200000*1000 /
+	ACROSS_NUM_GRID_CELLS*1000 /
 DZ
 -- The layers are 20, 30 and 50 ft thick, in each layer there are 500000 cells
-	500000*20 500000*30 500000*50 /
+	ACROSS_LAYER_SIZE*20 500000*30 ACROSS_LAYER_SIZE*50 /
 
 TOPS
 -- The depth of the top of each grid block
-	10000*8325 /
+	ACROSS_CELLS_Z_DIRECTION*8325 /
 
 PORO
 -- Constant porosity of 0.3 throughout all 1500000 grid cells
-   	1500000*0.3 /
+   	ACROSS_NUM_GRID_CELLS*0.3 /
 
 PERMX
 -- The layers have perm. 500mD, 50mD and 200mD, respectively.
-	500000*500 500000*50 500000*200 /
+	ACROSS_LAYER_SIZE*500 ACROSS_LAYER_SIZE*50 ACROSS_LAYER_SIZE*200 /
 
 PERMY
 -- Equal to PERMX
-	500000*500 500000*50 500000*200 /
+	ACROSS_LAYER_SIZE*500 ACROSS_LAYER_SIZE*50 ACROSS_LAYER_SIZE*200 /
 
 PERMZ
 -- Cannot find perm. in z-direction in Odeh's paper
 -- For the time being, we will assume PERMZ equal to PERMX and PERMY:
-	500000*500 500000*50 500000*200 /
+	ACROSS_LAYER_SIZE*500 ACROSS_LAYER_SIZE*50 ACROSS_LAYER_SIZE*200 /
 ECHO
 
 PROPS

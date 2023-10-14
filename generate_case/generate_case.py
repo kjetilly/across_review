@@ -35,9 +35,9 @@ a new case with resolution nx * 10 x ny * 10 x nz * 3
         'ACROSS_NUM_X': args.nx * xbase,
         'ACROSS_NUM_Y': args.ny * ybase,
         'ACROSS_NUM_Z': args.nz * zbase,
-        'ACROSS_CELlS_X_DIRECTION': args.nz * zbase * args.ny * ybase,
-        'ACROSS_CELlS_Y_DIRECTION': args.nz * zbase * args.nx * xbase,
-        'ACROSS_CELlS_Z_DIRECTION': args.ny * ybase * args.nx * xbase,
+        'ACROSS_CELLS_X_DIRECTION': args.nz * zbase * args.ny * ybase,
+        'ACROSS_CELLS_Y_DIRECTION': args.nz * zbase * args.nx * xbase,
+        'ACROSS_CELLS_Z_DIRECTION': args.ny * ybase * args.nx * xbase,
         'ACROSS_NUM_GRID_CELLS': args.nz * zbase * args.ny * ybase * args.nx * xbase,
         'ACROSS_LAYER_SIZE': (args.nz * zbase * args.ny * ybase * args.nx * xbase)//3,
     }
@@ -50,6 +50,5 @@ a new case with resolution nx * 10 x ny * 10 x nz * 3
                 with open(targetfile, 'w') as target:
                     for l in source:
                         for k, v in replacements.items():
-                            l_transformed = l.replace(k, str(v))
-
-                        target.write(f'{l_transformed}')
+                            l = l.replace(k, str(v))
+                        target.write(f'{l}')

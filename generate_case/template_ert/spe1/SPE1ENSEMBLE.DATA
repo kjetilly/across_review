@@ -74,10 +74,10 @@ NOECHO
 
 DX 
 -- There are in total 300 cells with length 1000ft in x-direction	
-   	ACROSS_CELLS_X_DIRECTION*1000 /
+   	ACROSS_NUM_GRID_CELLS*1000 /
 DY
 -- There are in total 300 cells with length 1000ft in y-direction	
-	ACROSS_CELLS_Y_DIRECTION*1000 /
+	ACROSS_NUM_GRID_CELLS*1000 /
 DZ
 -- The layers are 20, 30 and 50 ft thick, in each layer there are 100 cells
 	ACROSS_LAYER_SIZE*20 ACROSS_LAYER_SIZE*30 ACROSS_LAYER_SIZE*50 /
