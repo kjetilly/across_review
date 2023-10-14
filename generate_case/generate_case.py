@@ -43,7 +43,7 @@ a new case with resolution nx * 10 x ny * 10 x nz * 3
     }
     for path, dirs, files in os.walk(template_dir):
         targetdir = path.replace(template_dir, args.output_dir)
-
+        os.makedirs(targetdir, exist_ok=True)
         for fname in files:
             targetfile = os.path.join(targetdir, fname)
             with open(os.path.join(path, fname), 'r') as source:
