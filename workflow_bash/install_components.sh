@@ -7,7 +7,11 @@ then
     echo "    bash $0 <path to install directory>"
     exit 1
 fi
-target_dir=$1
+
+export CC=$(which gcc-11)
+export CXX=$(which g++-11)
+
+target_dir=$(realpath $1)
 mkdir -p $target_dir
 # see https://stackoverflow.com/a/246128
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -19,14 +23,15 @@ BUILD_FOLDER=${target_dir}/src
 mkdir -p ${BUILD_FOLDER}
 BUILD_TYPE=Release
 
-python3 -m venv $ERT_VENV
-python3 -m venv $FLOW_VENV
+python3.7 -m venv $ERT_VENV
+python3.7 -m venv $FLOW_VENV
 
 . $ERT_VENV/bin/activate 
 cd ${BUILD_FOLDER}
 pip install --upgrade pip wheel setuptools
-pip install cmake==3.16.8
-pip install conan==1.52.0
+#pip install cmake==3.16.8
+pip install conan==1.61.0
+#conan profile detect
 pip install git+https://github.com/kjetilly/ert.git@hq
 deactivate
 
