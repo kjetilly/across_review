@@ -2,8 +2,8 @@
 set -e
 location=`pwd`
 
-CC=$(which gcc)
-CXX=$(which g++)
+CC=$(which gcc-11)
+CXX=$(which g++-11)
 
 parallel_build_tasks=16
 
@@ -32,7 +32,7 @@ cd build
 cmake \
     -DCMAKE_C_COMPILER=$CC \
     -DCMAKE_CXX_COMPILER=$CXX \
-    -D CMAKE_INSTALL_PREFIX=$install_prefix \
+    -DCMAKE_INSTALL_PREFIX=$install_prefix \
     -D TPL_ENABLE_MPI:BOOL=ON \
     -D Trilinos_ENABLE_ALL_PACKAGES:BOOL=OFF \
     -D Trilinos_ENABLE_Zoltan:BOOL=ON \

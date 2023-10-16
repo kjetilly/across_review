@@ -3,10 +3,10 @@ set -e
 dune_version='v2.8.0'
 location=`pwd`
 
-CC=$(which gcc)
-CXX=$(which g++)
+CC=$(which gcc-11)
+CXX=$(which g++-11)
 
-parallel_build_tasks=16
+parallel_build_tasks=2
 
 
 #############################################
