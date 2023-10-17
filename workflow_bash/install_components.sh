@@ -62,7 +62,6 @@ cd opm-sources
 bash build_zoltan.sh
 bash build_dune.sh
 bash build_opm_component.sh opm-common
-bash build_opm_component.sh opm-material
 bash build_opm_component.sh opm-grid
 bash build_opm_component.sh opm-models
 bash build_opm_component.sh opm-simulators
