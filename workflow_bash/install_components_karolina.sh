@@ -52,15 +52,32 @@ cd ${BUILD_FOLDER}
 mkdir xsd
 cd xsd
 
-bpkg create -d xsd-gcc-10 cc     \
+${target_dir}/build2/bin/bpkg create -d xsd-gcc-10 cc     \
   config.cxx=g++                  \
   config.cc.coptions=-O3          \
   config.bin.rpath=${target_dir}/xsd-install \
   config.install.root=${target_dir}/xsd-install 
 
-cd xsd-gcc-N
-bpkg build --yes --sys-yes xsd@https://pkg.cppget.org/1/beta
-bpkg install --yes --sys-yes xsd
+cd xsd-gcc-10
+${target_dir}/build2/bin/bpkg build --yes --sys-yes xsd@https://pkg.cppget.org/1/beta
+${target_dir}/build2/bin/bpkg install xsd
+
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${target_dir}/xsd-install/lib
+
+cd ${BUILD_FOLDER}/xsd
+
+${target_dir}/build2/bin/bpkg create -d libxsd-gcc-10 cc  \
+  config.cxx=g++                  \
+  config.cc.coptions=-O3          \
+  config.install.root=${target_dir}/xsd-install \
+
+cd libxsd-gcc-10
+${target_dir}/build2/bin/bpkg add https://pkg.cppget.org/1/beta
+${target_dir}/build2/bin/bpkg fetch
+${target_dir}/build2/bin/bpkg build libxerces-c
+${target_dir}/build2/bin/bpkg build libexpat
+${target_dir}/build2/bin/bpkg build libxsd
+${target_dir}/build2/bin/bpkg install --all --recursive
 
 cd ${BUILD_FOLDER}
 mkdir -p ${target_dir}/damaris-extra
