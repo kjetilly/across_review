@@ -124,6 +124,6 @@ cp -r ${docker_dir}/damaris-scripts ${target_dir}/damaris-scripts
 chmod -R a+rX ${target_dir}/damaris-scripts
 
 
-echo "DASK_FILE=${target_dir}/dask.json" > ${target_dir}/environments.sh
-echo "FLOW_VENV=$FLOW_VENV" >> ${target_dir}/environments.sh
-echo "ERT_VENV=$ERT_VENV" >> ${target_dir}/environments.sh
+echo "export DASK_FILE=${target_dir}/dask.json" > ${target_dir}/environments.sh
+echo "export FLOW_VENV=$FLOW_VENV" >> ${target_dir}/environments.sh
+echo "export ERT_VENV=$ERT_VENV" >> ${target_dir}/environments.sh

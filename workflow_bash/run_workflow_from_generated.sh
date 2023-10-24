@@ -11,9 +11,9 @@ fi
 installdir=$1
 datadir=$2
 
-if [ ! -f ${installdir}/environment.sh ]
+if [ ! -f ${installdir}/environments.sh ]
 then
-    echo "${installdir}/environment.sh does not exist"
+    echo "${installdir}/environments.sh does not exist"
     exit 1
 fi
 
@@ -24,7 +24,7 @@ then
 fi
 
 
-source ${installdir}/environment.sh
+source ${installdir}/environments.sh
 
 export MACHINE_LEARNING_SCRIPT=${datadir}/machine_learning_across.py
 
