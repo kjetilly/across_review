@@ -23,8 +23,8 @@ BUILD_FOLDER=${target_dir}/src
 mkdir -p ${BUILD_FOLDER}
 BUILD_TYPE=Release
 
-python -m venv $ERT_VENV
-python -m venv $FLOW_VENV
+python3.10 -m venv $ERT_VENV
+python3.10 -m venv $FLOW_VENV
 
 . $ERT_VENV/bin/activate 
 cd ${BUILD_FOLDER}
