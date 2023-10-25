@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Yes, this could probably a have been a bash script...
 import re
 import os
