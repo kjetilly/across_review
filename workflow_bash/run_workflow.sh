@@ -75,4 +75,6 @@ deactivate
 # 5) Run ert on the login node. ERT will then queue jobs through HQ.
 echo "Starting ERT"
 . ${ERT_VENV}/bin/activate
-ert ensemble_experiment "$@"
+cd $(dirname $1)
+
+ert ensemble_experiment $(basename $1)
