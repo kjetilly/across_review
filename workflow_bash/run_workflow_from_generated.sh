@@ -8,7 +8,7 @@ then
     exit 1
 fi
 
-installdir=$1
+installdir=$(realpath $1)
 datadir=$2
 
 if [ ! -f ${installdir}/environments.sh ]
@@ -25,6 +25,7 @@ fi
 
 
 source ${installdir}/environments.sh
+export PATH=$PATH:${installdir}/bin:${installdir}/src/opm-sources/opm-install/bin
 
 export MACHINE_LEARNING_SCRIPT=${datadir}/machine_learning_across.py
 
