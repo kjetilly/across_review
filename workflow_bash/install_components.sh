@@ -52,6 +52,7 @@ cmake .. \
     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
     -DGENERATE_MODEL=ON \
     -DCMAKE_INSTALL_PREFIX=${BUILD_FOLDER}/damaris-install \
+    -DPython_FIND_VIRTUALENV=ONLY \
     -DPYTHON_MODULE_INSTALL_PATH=${BUILD_FOLDER}/damaris_python && \
 make install
 
@@ -76,7 +77,9 @@ rm -rf ${BUILD_FOLDER}/hq-v0.13.0-linux-x64.tar.gz && \
 chmod a+rwx hq
 
 cp ${docker_dir}/run-scripts/* ${target_dir}/bin/
+mv ${target_dir}/bin/flow_venv_native.sh ${target_dir}/bin/flow_venv.sh
 chmod a+x ${target_dir}/bin/*.sh
+chmod a+x ${target_dir}/bin/fix_xml.py
 
 cp -r ${docker_dir}/damaris-scripts ${target_dir}/damaris-scripts
 chmod -R a+rX ${target_dir}/damaris-scripts
