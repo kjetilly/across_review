@@ -26,8 +26,10 @@ fi
 
 source ${installdir}/environments.sh
 export PATH=$PATH:${installdir}/bin:${installdir}/src/opm-sources/opm-install/bin
+export DAMARIS_PYTHON_DIR=${installdir}/src/damaris_python
 
 export MACHINE_LEARNING_SCRIPT=${datadir}/machine_learning_across.py
+export FLOW_DAMARIS_CONFIG_XML_FILE=${installdir}/damaris-scripts/damaris.xml
 
 # see https://stackoverflow.com/a/246128
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
