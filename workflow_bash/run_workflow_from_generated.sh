@@ -31,9 +31,12 @@ export DAMARIS_PYTHON_DIR=${installdir}/src/damaris_python
 export MACHINE_LEARNING_SCRIPT=${datadir}/machine_learning_across.py
 export FLOW_DAMARIS_CONFIG_XML_FILE=${installdir}/damaris-scripts/damaris.xml
 export ACROSS_PUBLISH_DATA_SCRIPT=${installdir}/damaris-scripts/publish_data.py
+export ACROSS_DATA_DIR=$(pwd)/data
+mkdir -p ${ACROSS_DATA_DIR}
 
 # see https://stackoverflow.com/a/246128
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+export PYTHON_RUNNER="bash ${SCRIPT_DIR}/python_runner.sh"
 
 bash ${SCRIPT_DIR}/run_workflow.sh ${datadir}/spe1_local.ert
 

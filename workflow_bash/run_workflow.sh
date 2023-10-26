@@ -60,15 +60,13 @@ sleep 30s # Make sure it is really started before we go on
 
 # 3) Queue the start of some dask workers through HQ ("some" is loosely defined, but say 2 for a very simple example)
 echo "Queuing some dask workers"
-. ${FLOW_VENV}/bin/activate
-hq submit dask-worker --scheduler-file ${DASK_FILE}
+hq submit ${PYTHON_RUNNER} ${FLOW_VENV} dask-worker --scheduler-file ${DASK_FILE}
 deactivate
 
 
 # 4) Queue the start of a machine learning Python script through HQ (this script essentially just runs an infinite loop training as long as it can)
 echo "Queuing ML script"
-. ${FLOW_VENV}/bin/activate
-hq submit python ${MACHINE_LEARNING_SCRIPT} -s ${DASK_FILE}
+hq submit ${PYTHON_RUNNER} ${FLOW_VENV} python ${MACHINE_LEARNING_SCRIPT} -s ${DASK_FILE}
 deactivate
 
 
