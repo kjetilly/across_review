@@ -38,6 +38,6 @@ mkdir -p ${ACROSS_DATA_DIR}
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 export PYTHON_RUNNER="bash ${SCRIPT_DIR}/python_runner.sh"
 
-bash ${SCRIPT_DIR}/run_workflow.sh ${datadir}/spe1_local.ert
+bash ${SCRIPT_DIR}/run_workflow.sh ${datadir}/spe1.ert
 
 
