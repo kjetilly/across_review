@@ -21,7 +21,7 @@
             global="n_elements_total" comment="For the field data e.g. Pressure" />
         <variable name="PRESSURE" layout="zonal_layout_usmesh" type="scalar" visualizable="true"
             mesh="unstructured_mesh" unit="Bar" centering="zonal" time-varying="true"
-            select-file="GLOBAL_CELL_INDEX" store="MyPyAction" script="#" />
+            select-file="GLOBAL_CELL_INDEX" store="MyPyAction" script="MyPyAction" />
 
 
         <variable name="MPI_RANK" layout="zonal_layout_usmesh_integer" type="scalar"

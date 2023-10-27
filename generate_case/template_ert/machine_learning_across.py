@@ -92,13 +92,13 @@ def train(model, datastore, callback):
         samples = datastore.get_batch(batch_size, min_batch_size=16)
 
         if iteration == 0:
-            print(samples)
-            print(samples.shape)
+            print(samples, flush=True)
+            print(samples.shape, flush=True)
         optimizer.zero_grad()
         outputs = model(samples)
         if iteration == 0:
-            print(outputs)
-            print(outputs.shape)
+            print(outputs, flush=True)
+            print(outputs.shape, flush=True)
         loss = loss_function(outputs, samples)
         loss.backward()
         optimizer.step()
@@ -126,7 +126,6 @@ def blocking_task(client, dataqueue):
     sub = Sub(name='SIMULATION_DATA', client=client)
     while True:
         simulation_data = sub.get()  # this blocks until data arrives
-        print("Got data, putting it on the queue")
 
         if np.prod(simulation_data[1].shape) == 1:
             continue
@@ -165,7 +164,7 @@ class NeuralNetwork(nn.Module):
         return self.dnn_up(self.dnn_down(x))
 
 if __name__ == '__main__':
-    print("Running dask server")
+    print("Running dask server", flush=True)
     import argparse
     from dask.distributed import Client
 
