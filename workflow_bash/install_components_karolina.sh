@@ -125,7 +125,7 @@ chmod a+x ${target_dir}/bin/fix_xml.py
 
 
 cp -r ${docker_dir}/damaris-scripts ${target_dir}/damaris-scripts
-mv ${target_dir}/damaris_native.xml ${target_dir}/damaris-scripts/damaris.xml
+mv ${target_dir}/damaris-scripts/damaris_native.xml ${target_dir}/damaris-scripts/damaris.xml
 chmod -R a+rX ${target_dir}/damaris-scripts
 
 
