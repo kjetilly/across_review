@@ -54,7 +54,9 @@ sleep 30s # Make sure it is really started before we go on
 # 2) Submit some HQ workers to the slurm queue.
 # TODO: Replace with slurm
 echo "Starting HQ workers"
-hq worker start --cpus 3 &> hq_worker_log.txt &
+. ${FLOW_VENV}/bin/activate
+# Make sure we have the correct pythonpath for the workers
+PYTHONPATH=$PYTHONPATH:$(dirname $(dirname $FAKE_ERT_SCRIPT)) hq worker start --cpus 3 &> hq_worker_log.txt &
 sleep 30s # Make sure it is really started before we go on
 
 
@@ -72,4 +74,4 @@ sleep 30s # Make sure it is started before we go on
 
 # 5) Run ert on the login node. ERT will then queue jobs through HQ.
 echo "Starting fake ERT"
-$ERT_EXECUTE_SCRIPT $(basename $1)
+$ERT_EXECUTE_SCRIPT $1
