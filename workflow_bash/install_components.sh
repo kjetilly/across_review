@@ -72,11 +72,11 @@ bash build_opm_component.sh opm-simulators
 deactivate
 
 cd ${BUILD_FOLDER}
-wget https://github.com/It4innovations/hyperqueue/releases/download/v0.13.0/hq-v0.13.0-linux-x64.tar.gz
+wget https://github.com/It4innovations/hyperqueue/releases/download/v0.16.0/hq-v0.16.0-linux-x64.tar.gz
 mkdir -p ${target_dir}/bin
 cd ${target_dir}/bin
-tar xvf ${BUILD_FOLDER}/hq-v0.13.0-linux-x64.tar.gz && \
-rm -rf ${BUILD_FOLDER}/hq-v0.13.0-linux-x64.tar.gz && \
+tar xvf ${BUILD_FOLDER}/hq-v0.16.0-linux-x64.tar.gz && \
+rm -rf ${BUILD_FOLDER}/hq-v0.16.0-linux-x64.tar.gz && \
 chmod a+rwx hq
 
 cp ${docker_dir}/run-scripts/* ${target_dir}/bin/
@@ -85,7 +85,7 @@ chmod a+x ${target_dir}/bin/*.sh
 chmod a+x ${target_dir}/bin/fix_xml.py
 
 cp -r ${docker_dir}/damaris-scripts ${target_dir}/damaris-scripts
-mv ${target_dir}/damaris_native.xml ${target_dir}/damaris-scripts/damaris.xml
+mv ${target_dir}/damaris-scripts/damaris_native.xml ${target_dir}/damaris-scripts/damaris.xml
 chmod -R a+rX ${target_dir}/damaris-scripts
 
 
