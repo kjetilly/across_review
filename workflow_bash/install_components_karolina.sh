@@ -98,6 +98,9 @@ cmake .. \
     -DPYTHON_MODULE_INSTALL_PATH=${BUILD_FOLDER}/damaris_python && \
 make install
 
+# Get fake_ert
+cd ${BUILD_FOLDER}
+git clone https://github.com/kjetilly/opm-runner.git
 
 cp -r ${docker_dir}/opm-sources-master ${BUILD_FOLDER}/opm-sources
 cd ${BUILD_FOLDER}

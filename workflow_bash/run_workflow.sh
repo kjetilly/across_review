@@ -71,8 +71,5 @@ sleep 30s # Make sure it is started before we go on
 
 
 # 5) Run ert on the login node. ERT will then queue jobs through HQ.
-echo "Starting ERT"
-. ${ERT_VENV}/bin/activate
-cd $(dirname $1)
-
-ert ensemble_experiment $(basename $1)
+echo "Starting fake ERT"
+$ERT_EXECUTE_SCRIPT $(basename $1)

@@ -26,6 +26,7 @@ fi
 
 source ${installdir}/environments.sh
 export PATH=$PATH:${installdir}/bin:${installdir}/src/opm-sources/opm-install/bin
+export FAKE_ERT_SCRIPT=${installdir}/src/opm-runner/bin/run_ensemble_from_ert.py
 export DAMARIS_PYTHON_DIR=${installdir}/src/damaris_python
 
 export MACHINE_LEARNING_SCRIPT=${datadir}/machine_learning_across.py
@@ -37,6 +38,7 @@ mkdir -p ${ACROSS_DATA_DIR}
 # see https://stackoverflow.com/a/246128
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 export PYTHON_RUNNER="bash ${SCRIPT_DIR}/python_runner.sh"
+export ERT_EXECUTE_SCRIPT="bash ${SCRIPT_DIR}/fake_ert.sh"
 
 bash ${SCRIPT_DIR}/run_workflow.sh ${datadir}/spe1.ert
 

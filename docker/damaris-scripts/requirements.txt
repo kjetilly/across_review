@@ -50,3 +50,4 @@ urwid==2.1.2
 urwid-readline==0.13
 wcwidth==0.2.5
 zict==2.2.0
+tqdm==4.65.0
