@@ -15,6 +15,9 @@ import queue
 import threading
 import numpy as np
 import torch
+# TODO: Set this interactively. For now we limit the amount
+# of resources this eats up.
+torch.set_num_threads(1) 
 import torch.nn as nn
 import os
 import copy
