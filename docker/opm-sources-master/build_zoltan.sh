@@ -2,8 +2,15 @@
 set -e
 location=`pwd`
 
-CC=$(which gcc-11)
-CXX=$(which g++-11)
+
+if [[ $(type -P "gcc-11") ]]
+then
+    CC=$(which gcc-11)
+    CXX=$(which g++-11)
+else
+    CC=$(which gcc)
+    CXX=$(which g++)
+fi
 
 parallel_build_tasks=16
 
