@@ -14,7 +14,7 @@ location=$(pwd)
 parallel_build_tasks=1
 extra_prefix=$1
 install_prefix=$location/opm-install-josh
-
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 for repo in opm-common opm-grid opm-models opm-simulators
 do
     cd $location
@@ -22,6 +22,10 @@ do
 	if [[ "$repo" == "opm-simulators" ]]
 	then
 	    git clone https://github.com/jcbowden/${repo} -b damariswriter-for-sim-fields-v5
+
+	    # TODO: Make a nicer fix for this. This is to make it compile
+	    # with newer versions of fmtlib
+	    cp ${SCRIPT_DIR}/ISTLSolverEbos.cpp opm-simulators/opm/simulators/linalg/ISTLSolverEbos.cpp    
 	else
 	    git clone https://github.com/OPM/${repo}
 	    cd ${repo}
