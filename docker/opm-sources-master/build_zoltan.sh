@@ -11,6 +11,7 @@ else
     CC=$(which gcc)
     CXX=$(which g++)
 fi
+extra_prefix=$1
 
 parallel_build_tasks=16
 
@@ -40,6 +41,7 @@ cmake \
     -DCMAKE_C_COMPILER=$CC \
     -DCMAKE_CXX_COMPILER=$CXX \
     -DCMAKE_INSTALL_PREFIX=$install_prefix \
+    -DCMAKE_PREFIX_PATH=$extra_prefix \
     -D TPL_ENABLE_MPI:BOOL=ON \
     -D Trilinos_ENABLE_ALL_PACKAGES:BOOL=OFF \
     -D Trilinos_ENABLE_Zoltan:BOOL=ON \

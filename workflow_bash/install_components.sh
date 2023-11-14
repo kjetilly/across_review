@@ -69,6 +69,13 @@ bash build_opm_component.sh opm-common
 bash build_opm_component.sh opm-grid
 bash build_opm_component.sh opm-models
 bash build_opm_component.sh opm-simulators
+
+cd ${BUILD_FOLDER}
+mkdir -p opm-josh
+cd opm-josh
+bash ../opm-sources/build_zoltan.sh
+bash ../opm-sources/build_dune.sh
+bash ../opm-sources/build_opm_josh.sh
 deactivate
 
 cd ${BUILD_FOLDER}
