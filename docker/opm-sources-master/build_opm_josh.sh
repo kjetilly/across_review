@@ -19,19 +19,19 @@ for repo in opm-common opm-grid opm-models opm-simulators
 do
     cd $location
     if [[ ! -d $repo ]]; then
-	if [[ "$repo" == "opm-simulators" ]]
-	then
-	    git clone https://github.com/jcbowden/${repo} -b damariswriter-for-sim-fields-v5
+		if [[ "$repo" == "opm-simulators" ]]
+		then
+			git clone https://github.com/jcbowden/${repo} -b damariswriter-for-sim-fields-v5-master
 
-	    # TODO: Make a nicer fix for this. This is to make it compile
-	    # with newer versions of fmtlib
-	    cp ${SCRIPT_DIR}/ISTLSolverEbos.cpp opm-simulators/opm/simulators/linalg/ISTLSolverEbos.cpp    
-	else
-	    git clone https://github.com/OPM/${repo}
-	    cd ${repo}
-	    git checkout `git rev-list -n 1 --before="2023-09-28 18:37" master`
-	    cd ..;
-	fi
+			# TODO: Make a nicer fix for this. This is to make it compile
+			# with newer versions of fmtlib
+			cp ${SCRIPT_DIR}/ISTLSolverEbos.cpp opm-simulators/opm/simulators/linalg/ISTLSolverEbos.cpp    
+		else
+			git clone https://github.com/OPM/${repo}
+			cd ${repo}
+			git checkout `git rev-list -n 1 --before="2023-09-28 18:37" master`
+			cd ..;
+		fi
     fi
     cd $repo
     if [[ ! -d build ]]; then
