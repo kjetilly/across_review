@@ -1,5 +1,4 @@
-module load GCC/10.2.0
-module load CMake/3.20.1-GCCcore-10.2.0
-module load Boost/1.77.0-GCC-10.2.0-Python-3.8.6
-module load SuiteSparse/5.10.1-foss-2021a-METIS-5.1.0
-module load HDF5/1.10.7-gompi-2020b 
+module load OpenBLAS/0.3.21-GCC-12.2.0
+module load HDF5/1.14.0-gompi-2022b
+module load Python/3.10.8-GCCcore-12.2.0
+module load SuiteSparse/5.13.0-foss-2022b-METIS-5.1.0
