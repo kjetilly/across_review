@@ -38,7 +38,7 @@ deactivate
 
 . $FLOW_VENV/bin/activate
 pip install --upgrade pip
-pip3 install -r ${docker_dir}/damaris-scripts/requirements.txt
+pip3 install -r ${docker_dir}/damaris-scripts/requirements_karolina.txt
 
 # we need build2 for xsd which we in turn need for damaris
 cd $BUILD_FOLDER/
