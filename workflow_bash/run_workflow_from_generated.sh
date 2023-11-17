@@ -25,7 +25,7 @@ fi
 
 
 source ${installdir}/environments.sh
-export PATH=$PATH:${installdir}/bin:${installdir}/src/opm-sources/opm-install/bin
+export PATH=$PATH:${installdir}/bin:${installdir}/src/opm-josh/opm-install-josh/bin
 export FAKE_ERT_SCRIPT=${installdir}/src/opm-runner/bin/run_ensemble_from_ert.py
 export DAMARIS_PYTHON_DIR=${installdir}/src/damaris_python
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${installdir}/xsd-install/lib/
