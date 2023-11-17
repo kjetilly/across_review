@@ -7,7 +7,7 @@
         <placement />
         <queue name="queue" size="300" />
     </architecture>
-
+    
     <data>
         <parameter name="n_elements_total" type="int" value="1" />
         <parameter name="n_elements_local" type="int" value="1" />
@@ -15,8 +15,8 @@
 
         <layout name="zonal_layout_usmesh_integer" type="int" dimensions="n_elements_local"
             global="n_elements_total" comment="For the field data e.g. Pressure" />
-        <!-- <variable name="GLOBAL_CELL_INDEX" layout="zonal_layout_usmesh_integer" type="scalar"
-            visualizable="false" time-varying="false" store="MyStore" centering="zonal" /> -->
+        <variable name="GLOBAL_CELL_INDEX" layout="zonal_layout_usmesh_integer" type="scalar"
+            visualizable="false" time-varying="false" store="MyPyAction" centering="zonal" />
         <layout name="zonal_layout_usmesh" type="double" dimensions="n_elements_local"
             global="n_elements_total" comment="For the field data e.g. Pressure" />
         <variable name="PRESSURE" layout="zonal_layout_usmesh" type="scalar" visualizable="true"
@@ -235,6 +235,6 @@
 </actions>
 
     <log FileName="./damaris_log/opm-flow" RotationSize="5" LogFormat="[%TimeStamp%]: %Message%"
-        Flush="true" LogLevel="info" />
+        Flush="true" LogLevel="debug" />
 
 </simulation>
