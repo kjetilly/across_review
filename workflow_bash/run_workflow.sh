@@ -56,13 +56,16 @@ sleep 30s # Make sure it is really started before we go on
 echo "Starting HQ workers"
 . ${FLOW_VENV}/bin/activate
 # Make sure we have the correct pythonpath for the workers
-PYTHONPATH=$PYTHONPATH:$(dirname $(dirname $FAKE_ERT_SCRIPT)) hq worker start --cpus 4 &> hq_worker_log.txt &
+PYTHONPATH=$PYTHONPATH:$(dirname $(dirname $FAKE_ERT_SCRIPT)) hq worker start --cpus 16 &> hq_worker_log.txt &
 sleep 30s # Make sure it is really started before we go on
 
 
 # 3) Queue the start of some dask workers through HQ ("some" is loosely defined, but say 2 for a very simple example)
 echo "Queuing some dask workers"
-hq submit ${PYTHON_RUNNER} ${FLOW_VENV} dask-worker --scheduler-file ${DASK_FILE}
+for i in $(seq 1 10)
+do
+    hq submit ${PYTHON_RUNNER} ${FLOW_VENV} dask-worker --scheduler-file ${DASK_FILE}
+done
 sleep 30s # Make sure it is started before we go on
 
 
