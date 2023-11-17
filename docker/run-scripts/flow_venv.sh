@@ -1,10 +1,35 @@
 #!/bin/bash
 . ${FLOW_VENV}/bin/activate
 echo "running flow with $@"
-export PYTHONPATH=$PYTHONPATH:/opt/src/damaris_python
+export PYTHONPATH=$PYTHONPATH:${DAMARIS_PYTHON_DIR}
 
-python /run-scripts/fix_xml.py $FLOW_DAMARIS_CONFIG_XML_FILE
-export FLOW_DAMARIS_CONFIG_XML_FILE=$(realpath damaris_local.xml)
+fix_xml.py $FLOW_DAMARIS_CONFIG_XML_FILE
+export FLOW_DAMARIS_XML_FILE=$(realpath damaris_local.xml)
+#unset FLOW_DAMARIS_XML_FILE
+ensemble_number=$(get_ensemble_number.py)
+# Random delay
+sleep "$((1 + $RANDOM % 10))s"
 
 # And now we can run flow 
-mpirun -np 2 flow --threads-per-process=1 --enable-damaris-output=true "$@"
+echo mpirun -np 2 flow \
+    --threads-per-process=1 \
+    --enable-damaris-output=true \
+    --enable-ecl-output=false \
+    --damaris-python-script=$ACROSS_PUBLISH_DATA_SCRIPT \
+    --damaris-dedicated-cores=1 \
+    --damaris-sim-name=flow-$ensemble_number \
+    --damaris-dask-file=$DASK_FILE \
+    --damaris-save-to-hdf=false \
+    --damaris-shared-memeory-size-bytes=$((512*1024*1024)) \
+    "$@"
+mpirun -np 2 flow \
+    --threads-per-process=1 \
+    --enable-damaris-output=true \
+    --enable-ecl-output=false \
+    --damaris-python-script=$ACROSS_PUBLISH_DATA_SCRIPT \
+    --damaris-dedicated-cores=1 \
+    --damaris-sim-name=flow-$ensemble_number \
+    --damaris-dask-file=$DASK_FILE \
+    --damaris-save-to-hdf=false \
+    --damaris-shared-memeory-size-bytes=$((512*1024*1024)) \
+    "$@"
