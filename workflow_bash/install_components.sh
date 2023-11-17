@@ -90,6 +90,8 @@ cp ${docker_dir}/run-scripts/* ${target_dir}/bin/
 mv ${target_dir}/bin/flow_venv_native.sh ${target_dir}/bin/flow_venv.sh
 chmod a+x ${target_dir}/bin/*.sh
 chmod a+x ${target_dir}/bin/fix_xml.py
+chmod a+x ${target_dir}/bin/get_ensemble_number.py
+
 
 cp -r ${docker_dir}/damaris-scripts ${target_dir}/damaris-scripts
 mv ${target_dir}/damaris-scripts/damaris_native.xml ${target_dir}/damaris-scripts/damaris.xml
