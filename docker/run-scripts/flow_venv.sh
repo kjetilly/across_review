@@ -11,7 +11,7 @@ ensemble_number=$(get_ensemble_number.py)
 sleep "$((1 + $RANDOM % 10))s"
 
 # And now we can run flow 
-echo mpirun -np 2 flow \
+echo mpirun -np "${FAKE_ERT_NUM_PROCS:-2}" flow \
     --threads-per-process=1 \
     --enable-damaris-output=true \
     --enable-ecl-output=false \
@@ -22,7 +22,7 @@ echo mpirun -np 2 flow \
     --damaris-save-to-hdf=false \
     --damaris-shared-memeory-size-bytes=$((512*1024*1024)) \
     "$@"
-mpirun -np 2 flow \
+mpirun -np "${FAKE_ERT_NUM_PROCS:-2}" flow \
     --threads-per-process=1 \
     --enable-damaris-output=true \
     --enable-ecl-output=false \
