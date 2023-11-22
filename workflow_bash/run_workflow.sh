@@ -62,7 +62,7 @@ sleep 30s # Make sure it is really started before we go on
 
 # 3) Queue the start of some dask workers through HQ ("some" is loosely defined, but say 2 for a very simple example)
 echo "Queuing some dask workers"
-for i in $(seq 1 10)
+for i in $(seq 1 4)
 do
     hq submit ${PYTHON_RUNNER} ${FLOW_VENV} dask-worker --scheduler-file ${DASK_FILE}
 done
