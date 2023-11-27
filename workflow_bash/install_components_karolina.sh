@@ -100,6 +100,7 @@ cmake .. \
     -DENABLE_HDF5=ON \
     -DENABLE_PYTHON=ON \
     -DENABLE_PYTHONMOD=ON \
+    -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_PREFIX_PATH="${target_dir}/xsd-install;${target_dir}/boost-install" \
     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
     -DGENERATE_MODEL=ON \
