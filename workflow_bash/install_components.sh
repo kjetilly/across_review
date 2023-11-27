@@ -46,7 +46,8 @@ cd damaris
 mkdir -p build
 cd build
 cmake .. \
-    -DENABLE_HDF5=ON \
+      -DENABLE_HDF5=ON \
+      -DBUILD_SHARED_LIBS=ON \
     -DENABLE_PYTHON=ON \
     -DENABLE_PYTHONMOD=ON \
     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
