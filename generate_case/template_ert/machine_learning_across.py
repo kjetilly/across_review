@@ -51,7 +51,7 @@ class DataStore:
         return self._number_of_samples < self._max_samples
 
     def put(self, data):
-        data = reorder_data(np.array(data))
+        data = reorder_data(np.array(data.compute()))
        
         with self._condition:
             if len(self) == 0:
