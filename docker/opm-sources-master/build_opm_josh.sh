@@ -36,6 +36,8 @@ do
 			if [[ "$repo" == "opm-common" ]]
 			then
 				git checkout 9e3fa794cebb3f0902dfa3400797254ad9ddd5ce
+                cp ${SCRIPT_DIR}/Schedule.hpp opm/input/eclipse/Schedule/Schedule.hpp
+
 			elif [[ "$repo" == "opm-grid" ]]
 			then
 				git checkout 0276599f9eb63de44c3e4f1560f134d8ff77c03d
