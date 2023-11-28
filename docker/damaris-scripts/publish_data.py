@@ -56,7 +56,7 @@ def main(DD):
             pub = Pub(name="SIMULATION_DATA", client=client)
 
             printfunction(f"{iteration=}", flush=should_flush)
-            if True:  # PRESSURE is not None:
+            if PRESSURE is not None:
                 try:
                     # data = (
                     #     DD["iteration_data"]["PRESSURE"]["numpy_data"]["P0_B0"] * 1e-5
