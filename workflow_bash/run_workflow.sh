@@ -56,7 +56,7 @@ sleep 30s # Make sure it is really started before we go on
 echo "Starting HQ workers"
 . ${FLOW_VENV}/bin/activate
 # Make sure we have the correct pythonpath for the workers
-PYTHONPATH=$PYTHONPATH:$(dirname $(dirname $FAKE_ERT_SCRIPT)) hq worker start --cpus 16 &> hq_worker_log.txt &
+PYTHONPATH=$PYTHONPATH:$(dirname $(dirname $FAKE_ERT_SCRIPT)):${DAMARIS_PYTHON_DIR} hq worker start --cpus 16 &> hq_worker_log.txt &
 sleep 30s # Make sure it is really started before we go on
 
 
