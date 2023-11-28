@@ -49,7 +49,7 @@ echo "Starting HQ workers"
 . ${FLOW_VENV}/bin/activate
 # Make sure we have the correct pythonpath for the workers
 #PYTHONPATH=$PYTHONPATH:$(dirname $(dirname $FAKE_ERT_SCRIPT)) hq alloc add slurm --time-limit 1h -- -A dd-23-66
-PYTHONPATH=$PYTHONPATH:$(dirname $(dirname $FAKE_ERT_SCRIPT)) sbatch -A dd-23-66 --time=60 --wrap "hq worker start"
+PYTHONPATH=$PYTHONPATH:$(dirname $(dirname $FAKE_ERT_SCRIPT)):${DAMARIS_PYTHON_DIR} sbatch -A dd-23-66 --time=60 --wrap "hq worker start"
 sleep 30s # Make sure it is really started before we go on
 
 # 2) Start the dask scheduler on login node
