@@ -3,7 +3,7 @@
     <architecture>
         <domains count="1" />
         <dedicated cores="1" nodes="0" />
-        <buffer name="buffer" size="536870912" />
+        <buffer name="opm-flow" size="536870912" />
         <placement />
         <queue name="queue" size="300" />
     </architecture>
