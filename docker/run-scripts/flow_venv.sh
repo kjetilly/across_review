@@ -7,8 +7,6 @@ fix_xml.py $FLOW_DAMARIS_CONFIG_XML_FILE
 export FLOW_DAMARIS_XML_FILE=$(realpath damaris_local.xml)
 #unset FLOW_DAMARIS_XML_FILE
 ensemble_number=$(get_ensemble_number.py)
-# Random delay
-sleep "$((1 + $RANDOM % 10))s"
 
 # And now we can run flow 
 echo mpirun -np "${FAKE_ERT_NUM_PROCS:-2}" flow \
