@@ -44,6 +44,10 @@ pip install --upgrade pip
 pip3 install -r ${docker_dir}/damaris-scripts/requirements.txt
 pip3 install cmake
 
+cd ${BUILD_FOLDER}
+git clone git@github.com:OPM/pyopmspe11.git
+cd pyopmspe11
+pip install -e .
 # we need build2 for xsd which we in turn need for damaris
 cd $BUILD_FOLDER/
 mkdir build2

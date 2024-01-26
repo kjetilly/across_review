@@ -1,3 +1,4 @@
+export ACROSS_SPE11C_RESOLUTION='30,20,5'
 cd /home/kjetil/projects/across/workflow/across_review/;
 ./installdir/bin/hq server stop --server-dir /home/kjetil/.hq-server
 killall dask-scheduler

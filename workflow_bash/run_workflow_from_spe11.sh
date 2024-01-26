@@ -25,7 +25,7 @@ fi
 
 
 source ${installdir}/environments.sh
-export PATH=$PATH:${installdir}/bin:${installdir}/src/opm-josh/opm-install-josh/bin
+export PATH=$PATH:${installdir}/bin:${installdir}/src/opm-sources/opm-install/bin
 #export FAKE_ERT_SCRIPT=${installdir}/src/opm-runner/bin/run_ensemble_from_ert.py
 
 export DAMARIS_PYTHON_DIR=${installdir}/src/damaris_python
@@ -43,7 +43,7 @@ export FAKE_ERT_SCRIPT=$(realpath ${SCRIPT_DIR}/../../opm-runner/bin/run_ensembl
 
 
 export PYTHON_RUNNER="bash ${SCRIPT_DIR}/python_runner.sh"
-export ERT_EXECUTE_SCRIPT="bash ${SCRIPT_DIR}/fake_ert.sh"
+export ERT_EXECUTE_SCRIPT="bash ${SCRIPT_DIR}/fake_ert_spe11.sh"
 
 bash ${SCRIPT_DIR}/run_workflow.sh ${datadir}/spe11.ert
 
