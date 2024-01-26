@@ -12,7 +12,7 @@ DATA_FILE spe11b/spe11b.txt
 
 
 -- this set ups the random variables to be used in the simulation
-GEN_KW MULT_PORO spe11/template/spe11b.tmpl spe11c.txt spe11/parameters/parameters.txt
+GEN_KW MULT_PORO spe11/template/spe11b.tmpl spe11b.txt spe11/parameters/parameters.txt
 RANDOM_SEED 42
 INSTALL_JOB flow FLOW
 SIMULATION_JOB flow <ECLBASE>
