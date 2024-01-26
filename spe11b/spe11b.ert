@@ -1,0 +1,26 @@
+NUM_REALIZATIONS 10
+QUEUE_SYSTEM HQ
+-- QUEUE_OPTION LOCAL MAX_RUNNING 2
+
+-- Output paths
+RUNPATH output/simulations/runpath/realization-%d/iter-%d
+ENSPATH output/storage
+
+-- case names
+ECLBASE EXAMPLE%d
+DATA_FILE spe11b/spe11b.txt
+
+
+-- this set ups the random variables to be used in the simulation
+GEN_KW MULT_PORO spe11/template/spe11b.tmpl spe11c.txt spe11/parameters/parameters.txt
+RANDOM_SEED 42
+INSTALL_JOB flow FLOW
+SIMULATION_JOB flow <ECLBASE>
+
+OBS_CONFIG observations/observations.txt
+
+
+
+SUMMARY W*
+SUMMARY F*
+SUMMARY BPR*

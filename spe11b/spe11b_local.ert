@@ -1,0 +1,25 @@
+NUM_REALIZATIONS 10
+QUEUE_SYSTEM LOCAL
+QUEUE_OPTION LOCAL MAX_RUNNING 1
+
+-- Output paths
+RUNPATH output/simulations/runpath/realization-%d/iter-%d
+ENSPATH output/storage
+
+-- case names
+ECLBASE EXAMPLE%d
+DATA_FILE spe1/SPE1ENSEMBLE.DATA
+REFCASE spe1/SPE1CASE2
+
+-- this set ups the random variables to be used in the simulation
+GEN_KW MULT_PORO spe1/template/porosity.tmpl porosity.grdecl spe1/parameters/porosity.txt
+RANDOM_SEED 42
+
+INSTALL_JOB flow FLOW
+SIMULATION_JOB flow <ECLBASE>
+
+OBS_CONFIG observations/observations.txt
+
+SUMMARY W*
+SUMMARY F*
+SUMMARY BPR*
