@@ -8,7 +8,7 @@ ENSPATH output/storage
 
 -- case names
 ECLBASE EXAMPLE%d
-DATA_FILE spe11b/spe11b.txt
+DATA_FILE spe11/spe11b.txt
 
 
 -- this set ups the random variables to be used in the simulation
