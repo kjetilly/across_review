@@ -38,7 +38,7 @@ deactivate
 . $FLOW_VENV/bin/activate
 pip3 install -r ${docker_dir}/damaris-scripts/requirements.txt
 cd ${BUILD_FOLDER}
-git clone git@github.com:OPM/pyopmspe11.git
+git clone git@github.com:kjetilly/pyopmspe11.git
 cd pyopmspe11
 pip install -e .
 
